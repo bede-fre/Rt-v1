@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/12 10:06:17 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/12 10:18:32 by lguiller         ###   ########.fr       */
+/*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
+/*   Updated: 2018/06/12 10:18:00 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#ifndef RTV1_H
+# define RTV1_H
 
-int main(void)
-{
-	printf("bonjour\n");
-	return 0;
-}
+# include "libft.h"
+# include "mlx.h"
+# include <math.h>
+# include <limits.h>
+
+#endif

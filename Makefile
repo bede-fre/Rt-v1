@@ -6,7 +6,7 @@
 #    By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 12:18:12 by lguiller          #+#    #+#              #
-#    Updated: 2018/06/12 10:02:58 by lguiller         ###   ########.fr        #
+#    Updated: 2018/06/12 10:16:55 by lguiller         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 OPE_SYS			= $(shell uname)
 NAME			= rtv1
-SRCS1			=
+SRCS1			= main.c
 SRCS			= $(addprefix $(SRCS_DIR), $(SRCS1))
 OBJS			= $(addprefix $(OBJS_DIR), $(SRCS1:.c=.o))
 SRCS_DIR		= srcs/
