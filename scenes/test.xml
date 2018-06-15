@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<forme>
+	<sphere axes="x;y;z" color="hexa">
+		<position>0;0;0</position>
+		<orientation>0;0;0</orientation>
+		<color>0xFF</color>
+	</sphere>
+	<light axes="x;y;z">
+		<position>0;0;0</position>
+		<orientation>0;0;0</orientation>
+		<brightness>100</brightness>
+	</light>
+	<camera axes="x;y;z">
+		<position>0;0;0</position>
+		<orientation>0;0;0</orientation>
+	</camera>
+</forme>
