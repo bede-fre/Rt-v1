@@ -6,7 +6,7 @@
 #    By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 12:18:12 by lguiller          #+#    #+#              #
-#    Updated: 2018/06/20 18:15:07 by bede-fre         ###   ########.fr        #
+#    Updated: 2018/06/21 13:28:04 by lguiller         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,29 +60,29 @@ _CUT		= "\033[k"
 
 .PHONY: all title libft minilibx create_dir clean fclean re
 
-all: title libft minilibx $(NAME)
+all: $(NAME)
 
 create_dir:
 	@./.check_dir.sh $(OBJS_DIR)
 
-libft:
+libft: title
 	@make -sC libft
 
-minilibx:
+minilibx: libft
 	@make -sC $(MLX_DIR) 2>/dev/null
 
-$(NAME): create_dir $(OBJS)
+$(NAME): minilibx create_dir $(OBJS)
 	@gcc $(FLAGS) $(OBJS) $(LIBFT) $(FRAMEWORK) $(MINILIBX) -o $(NAME)
-	@echo $(_CLEAR)$(_YELLOW)"building - "$(_GREEN)"wolf3d"$(_END)
+	@echo $(_CLEAR)$(_YELLOW)"building - "$(_GREEN)$(NAME)$(_END)
 	@echo $(_GREEN)"Done."$(_END)$(_SHOW_CURS)
 
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@gcc $(FLAGS) $(INCLUDES) -c $^ -o $@
-	@printf $(_HIDE_CURS)$(_CLEAR)$(_YELLOW)"building - "$(_GREEN)
-	@printf $@ | cut -c6- | cut -d'.' -f1
-	@printf $(_END)
-	@printf $(_UP)$(_CUT)
+#	@printf $(_HIDE_CURS)$(_CLEAR)$(_YELLOW)"building - "$(_GREEN)
+#	@printf $@ | cut -c6- | cut -d'.' -f1
+#	@printf $(_END)
+#	@printf $(_UP)$(_CUT)
 
 clean:
 	@make -sC libft clean
@@ -93,7 +93,9 @@ fclean: clean
 	@make -sC libft fclean
 	@/bin/rm -f $(NAME)
 
-re: fclean all
+re:
+	@$(MAKE) fclean
+	@$(MAKE)
 
 title:
 	@echo $(_RED)
