@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/21 10:07:29 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/21 11:24:38 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define TAGS_LIST_LEN	10
 # define TAG_LEN		12
+# define COL_LEN		8
 
 typedef struct		s_coord
 {
@@ -39,7 +40,7 @@ typedef struct		s_scene
 typedef struct		s_all
 {
 //	t_mlx			mlx;
-	t_scene			*scene;
+	t_scene			scene;
 	char			tags_lst[TAGS_LIST_LEN][TAG_LEN];
 }					t_all;
 

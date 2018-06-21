@@ -6,7 +6,7 @@
 #    By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 12:18:12 by lguiller          #+#    #+#              #
-#    Updated: 2018/06/21 13:28:04 by lguiller         ###   ########.fr        #
+#    Updated: 2018/06/21 14:09:06 by bede-fre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,10 +79,6 @@ $(NAME): minilibx create_dir $(OBJS)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@gcc $(FLAGS) $(INCLUDES) -c $^ -o $@
-#	@printf $(_HIDE_CURS)$(_CLEAR)$(_YELLOW)"building - "$(_GREEN)
-#	@printf $@ | cut -c6- | cut -d'.' -f1
-#	@printf $(_END)
-#	@printf $(_UP)$(_CUT)
 
 clean:
 	@make -sC libft clean

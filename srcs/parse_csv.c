@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 10:42:35 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/21 11:01:53 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/21 14:05:42 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,23 @@ static void	ft_check_name(char *line, t_all *all, t_scene *tp)
 	char	**tab;
 	int		i;
 
-	i = -1;
+	i = 0;
 	ft_remove_whitespaces(line);
 	tab = ft_strsplit(line, ';');
-	while (++i < TAGS_LIST_LEN)
+	while (tab[i])
+		i++;
+	if (i != COL_LEN)
+		ft_error("error: invalid column", 2, ft_puterror);
+	i = -1;
+	while (++i < COL_LEN)
 		if (ft_strequ(tab[0], all->tags_lst[i]))
 			break ;
 	if (!(ft_strequ(tab[0], all->tags_lst[i])))
 		ft_error("error: invalid object name", 2, ft_puterror);
 	ft_stock_infos(tab, tp);
+	i = -1;
+	while (++i < COL_LEN)
+		ft_memdel((void **)&tab[i]);
 	ft_memdel((void **)&tab);
 }
 
@@ -67,10 +75,10 @@ void		ft_parse_csv(char *csv, t_all *all)
 	int		gnl;
 	char	*line;
 	t_scene	*tp;
+	int		i;
 
-	if (!(all->scene = (t_scene *)ft_memalloc(sizeof(t_scene))))
-		exit(1);
-	tp = all->scene;
+	i = -1;
+	tp = &all->scene;
 	if ((fd = open(csv, O_RDONLY)) == -1)
 		ft_error("error", 1, perror);
 	while ((gnl = get_next_line(fd, &line)) > 0)
@@ -78,7 +86,7 @@ void		ft_parse_csv(char *csv, t_all *all)
 		ft_check_name(line, all, tp);
 		ft_print_link(tp);
 		if (!(tp->next = (t_scene*)ft_memalloc(sizeof(t_scene))))
-			exit(1);
+			ft_error("error: Malloc", 1, ft_puterror);
 		tp = tp->next;
 		ft_memdel((void **)&line);
 	}
