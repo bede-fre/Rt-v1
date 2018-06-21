@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 10:42:35 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/21 14:05:42 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/21 15:33:45 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,21 @@ static void	ft_print_link(t_scene *tp)
 	ft_putnbr(tp->param1);
 	ft_putchar('\n');
 }
+/*
+static voidft_stock_infos(char **tab, t_scene *tp)
+{
+	int	i;
 
+	tp->name = ft_strdup(tab[0]);
+	i = -1;
+	while (++i < 3)
+		*((int*)&tp->pos + i) = ft_atoi(tab[i]);
+	i = -1;
+	while (++i < 3)
+		*((int*)&tp->dir + i) = ft_atoi(tab[i + 3]);
+	tp->param1 = ft_atoi(tab[7]);
+}
+*/
 static void	ft_stock_infos(char **tab, t_scene *tp)
 {
 	tp->name = ft_strdup(tab[0]);
