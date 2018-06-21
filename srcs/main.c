@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:06:17 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/20 19:17:54 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/21 11:02:07 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,5 @@ int			main(int ac, char **av)
 		ft_usage();
 	ft_init_tags_lst(&all);
 	ft_parse_csv(av[1], &all);
-	ft_putendl(all.scene->name);
-	ft_putnbr(all.scene->pos.x);
-	ft_putnbr(all.scene->pos.y);
-	ft_putnbr(all.scene->pos.z);
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/20 19:24:27 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/21 10:07:29 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,11 @@ typedef struct		s_scene
 	t_coord			pos;
 	t_coord			dir;
 	struct s_scene	*next;
-	struct s_scene	*prev;
 }					t_scene;
 
 typedef struct		s_all
 {
 //	t_mlx			mlx;
-	t_scene			*data;
 	t_scene			*scene;
 	char			tags_lst[TAGS_LIST_LEN][TAG_LEN];
 }					t_all;
