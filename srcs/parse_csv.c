@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 10:42:35 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/21 15:33:45 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/25 11:58:56 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,29 @@ static void	ft_print_link(t_scene *tp)
 	ft_putnbr(tp->param1);
 	ft_putchar('\n');
 }
-/*
-static voidft_stock_infos(char **tab, t_scene *tp)
+
+static void	ft_stock_infos(char **tab, t_scene *tp)
 {
 	int	i;
 
-	tp->name = ft_strdup(tab[0]);
 	i = -1;
-	while (++i < 3)
-		*((int*)&tp->pos + i) = ft_atoi(tab[i]);
-	i = -1;
-	while (++i < 3)
-		*((int*)&tp->dir + i) = ft_atoi(tab[i + 3]);
-	tp->param1 = ft_atoi(tab[7]);
-}
-*/
-static void	ft_stock_infos(char **tab, t_scene *tp)
-{
+	while (++i < COL_LEN)
+		*((int *)tp + (i + 1)) = ft_atoi(tab[i]);
 	tp->name = ft_strdup(tab[0]);
-	tp->pos.x = ft_atoi(tab[1]);
-	tp->pos.y = ft_atoi(tab[2]);
-	tp->pos.z = ft_atoi(tab[3]);
-	tp->dir.x = ft_atoi(tab[4]);
-	tp->dir.y = ft_atoi(tab[5]);
-	tp->dir.z = ft_atoi(tab[6]);
-	tp->param1 = ft_atoi(tab[7]);
 }
-
+/*
+   static void	ft_stock_infos(char **tab, t_scene *tp)
+   {
+   tp->name = ft_strdup(tab[0]);
+   tp->pos.x = ft_atoi(tab[1]);
+   tp->pos.y = ft_atoi(tab[2]);
+   tp->pos.z = ft_atoi(tab[3]);
+   tp->dir.x = ft_atoi(tab[4]);
+   tp->dir.y = ft_atoi(tab[5]);
+   tp->dir.z = ft_atoi(tab[6]);
+   tp->param1 = ft_atoi(tab[7]);
+   }
+   */
 static void	ft_check_name(char *line, t_all *all, t_scene *tp)
 {
 	char	**tab;
