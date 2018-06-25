@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/21 15:55:39 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/25 15:36:35 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,19 @@
 # include "mlx.h"
 # include <math.h>
 
-# define TAGS_LIST_LEN	10
-# define TAG_LEN		12
-# define COL_LEN		8
+# define TAGS_LIST_LEN		10
+# define TAG_LEN			12
+# define COL_LEN			12
+# define VIEWPLANEDIST		1.0
+# define VIEWPLANEHEIGHT	0.35
+# define VIEWPLANEWIDTH		0.5
+
+typedef struct		s_color
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_color;
 
 typedef struct		s_coord
 {
@@ -31,9 +41,17 @@ typedef struct		s_coord
 typedef struct		s_scene
 {
 	char			*name;
-	t_coord			pos;
-	t_coord			dir;
-	int				param1;
+	int				px;
+	int				py;
+	int				pz;
+	int				dx;
+	int				dy;
+	int				dz;
+	int				p1;
+	int				p2;
+	int				p3;
+	int				p4;
+	int				p5;
 	struct s_scene	*next;
 }					t_scene;
 
