@@ -6,13 +6,13 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:06:17 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/26 09:48:38 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/26 15:09:13 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void		ft_print_link(t_scene *tp)
+static void	ft_print_link(t_scene *tp)
 {
 	int	i;
 
@@ -43,16 +43,15 @@ static void	ft_free_lst(t_scene *scene)
 	}
 }
 
-static void	ft_init_tags_lst(t_all *all)
+static void	ft_init_elem_lst(t_all *all)
 {
 	int			i;
-	const char	tags_lst[TAGS_LIST_LEN][TAG_LEN] = {"cam", "spot", "plan",
-		"sphere", "cone", "barrel", "position", "direction", "brightness",
-		"color"};
+	const char	elem_lst[ELEM_LIST_LEN][ELEM_LEN] = {"cam", "spot", "plan",
+		"sphere", "cone", "barrel"};
 
 	i = -1;
-	while (++i < TAGS_LIST_LEN)
-		ft_strcpy(all->tags_lst[i], tags_lst[i]);
+	while (++i < ELEM_LIST_LEN)
+		ft_strcpy(all->elem_lst[i], elem_lst[i]);
 }
 
 int			main(int ac, char **av)
@@ -64,8 +63,9 @@ int			main(int ac, char **av)
 	if (ac != 2 || av[1][i - 1] != 'v' || av[1][i - 2] != 's' ||
 			av[1][i - 3] != 'c' || av[1][i - 4] != '.')
 		ft_error("usage: ./rtv1 [scene.csv]", 1, ft_puterror);
-	ft_init_tags_lst(&all);
+	ft_init_elem_lst(&all);
 	ft_parse_csv(av[1], &all);
+	ft_draw(&all);
 	ft_free_lst(&all.scene);
 	return (0);
 }

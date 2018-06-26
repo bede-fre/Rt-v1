@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 10:42:35 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/26 10:02:22 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/26 15:23:59 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static void	ft_check_name(char *line, t_all *all, t_scene *tp)
 	tab = ft_strsplit(line, ';');
 	i = -1;
 	while (++i < COL_LEN)
-		if (ft_strequ(tab[0], all->tags_lst[i]))
+		if (ft_strequ(tab[0], all->elem_lst[i]))
 			break ;
-	if (!(ft_strequ(tab[0], all->tags_lst[i])))
+	if (!(ft_strequ(tab[0], all->elem_lst[i])))
 		ft_error("error: invalid object name", 2, ft_puterror);
 	ft_stock_infos(tab, tp);
 	i = -1;
