@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/25 15:36:35 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/26 09:59:44 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@
 # define VIEWPLANEDIST		1.0
 # define VIEWPLANEHEIGHT	0.35
 # define VIEWPLANEWIDTH		0.5
+
+typedef struct		s_gnl
+{
+	int				fd;
+	int				x;
+	char			*line;
+}					t_gnl;
 
 typedef struct		s_color
 {
@@ -57,11 +64,11 @@ typedef struct		s_scene
 
 typedef struct		s_all
 {
-//	t_mlx			mlx;
 	t_scene			scene;
 	char			tags_lst[TAGS_LIST_LEN][TAG_LEN];
 }					t_all;
 
 void				ft_parse_csv(char *xml, t_all *all);
+void				ft_print_link(t_scene *tp);
 
 #endif

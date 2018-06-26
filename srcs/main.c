@@ -6,20 +6,36 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:06:17 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/25 12:05:20 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/26 09:48:38 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
+void		ft_print_link(t_scene *tp)
+{
+	int	i;
+
+	ft_putstr(tp->name);
+	i = 1;
+	while (++i <= COL_LEN)
+	{
+		ft_putchar(';');
+		ft_putnbr(*((int*)tp + i));
+	}
+	ft_putchar('\n');
+}
+
 static void	ft_free_lst(t_scene *scene)
 {
 	t_scene	*tp;
 
+	ft_print_link(scene);
 	ft_memdel((void **)&scene->name);
 	scene = scene->next;
 	while (scene)
 	{
+		ft_print_link(scene);
 		tp = scene->next;
 		ft_memdel((void **)&scene->name);
 		ft_memdel((void **)&scene);
@@ -46,10 +62,10 @@ int			main(int ac, char **av)
 
 	i = ft_strlen(av[1]);
 	if (ac != 2 || av[1][i - 1] != 'v' || av[1][i - 2] != 's' ||
-		av[1][i - 3] != 'c' || av[1][i - 4] != '.')
+			av[1][i - 3] != 'c' || av[1][i - 4] != '.')
 		ft_error("usage: ./rtv1 [scene.csv]", 1, ft_puterror);
 	ft_init_tags_lst(&all);
 	ft_parse_csv(av[1], &all);
 	ft_free_lst(&all.scene);
-	return 0;
+	return (0);
 }

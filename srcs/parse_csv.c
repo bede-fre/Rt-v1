@@ -6,25 +6,11 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 10:42:35 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/25 15:25:15 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/26 10:02:22 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-static void	ft_print_link(t_scene *tp)
-{
-	int	i;
-
-	ft_putstr(tp->name);
-	i = 1;
-	while (++i <= COL_LEN)
-	{
-		ft_putchar(';');
-		ft_putnbr(*((int*)tp + i));
-	}
-	ft_putchar('\n');
-}
 
 static void	ft_stock_infos(char **tab, t_scene *tp)
 {
@@ -60,28 +46,29 @@ static void	ft_check_name(char *line, t_all *all, t_scene *tp)
 
 void		ft_parse_csv(char *csv, t_all *all)
 {
-	int		fd;
-	int		gnl;
-	char	*line;
+	t_gnl	gnl;
 	t_scene	*tp;
-	int		i;
 
-	i = -1;
 	tp = &all->scene;
-	if ((fd = open(csv, O_RDONLY)) == -1)
+	if ((gnl.fd = open(csv, O_RDONLY)) == -1)
 		ft_error("error", 1, perror);
-	while ((gnl = get_next_line(fd, &line)) > 0)
+	if ((gnl.x = get_next_line(gnl.fd, &gnl.line)) > 0)
+		ft_check_name(gnl.line, all, tp);
+	else
+		ft_error("error: Not a valid file", 2, ft_puterror);
+	ft_memdel((void **)&gnl.line);
+	while ((gnl.x = get_next_line(gnl.fd, &gnl.line)) > 0)
 	{
-		ft_check_name(line, all, tp);
-		ft_print_link(tp);
 		if (!(tp->next = (t_scene*)ft_memalloc(sizeof(t_scene))))
 			ft_error("error: Malloc", 1, ft_puterror);
+		ft_check_name(gnl.line, all, tp->next);
 		tp = tp->next;
-		ft_memdel((void **)&line);
+		ft_memdel((void **)&gnl.line);
 	}
-	ft_memdel((void **)&line);
-	if (gnl == -1)
+	ft_memdel((void **)&gnl.line);
+	tp->next = NULL;
+	if (gnl.x == -1)
 		ft_error("error: Not a valid file", 2, ft_puterror);
-	if ((close(fd)) == -1)
+	if ((close(gnl.fd)) == -1)
 		ft_error("error", 3, perror);
 }
