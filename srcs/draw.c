@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:09:38 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/27 12:09:13 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/27 14:54:46 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 static int	ft_print_coord(int x, int y, void *p)
 {
 	(void)p;
-	ft_putnbr(x);
-	ft_putstr(" - ");
-	ft_putnbr(y);
-	ft_putchar('\n');
+	printf("x: %d   y: %d\n", x, y);
 	return (0);
 }
 
