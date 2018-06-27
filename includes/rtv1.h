@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/27 09:58:15 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/27 11:29:50 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define PLAN_D			10.0
 # define PLAN_W			24.0
 # define PLAN_H			18.0
-# define WIN_X			768
-# define WIN_Y			576
+# define WIN_X			256
+# define WIN_Y			192
 # define INCR_X			PLAN_W / (double)WIN_X
 # define INCR_Y			PLAN_H / (double)WIN_Y
 
@@ -93,6 +93,8 @@ void				ft_parse_csv(char *xml, t_all *all);
 t_scene				*ft_find_link(t_scene *scene, char name[], int i);
 void				ft_draw(t_all all);
 void				ft_init_mlx(t_all *all);
-void				ft_ray_tracing(t_all *all);
+void				ft_ray_tracing(t_all *all, int x, int y);
+int					ft_key_press(int key, void *p);
+int					ft_button_press(int button, int x, int y, t_all *all);
 
 #endif
