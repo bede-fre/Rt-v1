@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/26 17:46:20 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/27 10:11:39 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_scene		*ft_find_link(t_scene *scene, char name[], int i)
 	tp = scene;
 	while (tp)
 	{
-		if (ft_strequ(scene->name, name) && --i == 0)
+		if (ft_strequ(tp->name, name) && --i == 0)
 			return (tp);
-		tp = scene->next;
+		tp = tp->next;
 	}
 	return (NULL);
 }
@@ -29,7 +29,7 @@ t_scene		*ft_find_link(t_scene *scene, char name[], int i)
 static void	ft_init_values(t_all *all)
 {
 	t_scene		*cam;
-	
+
 	cam = ft_find_link(&all->scene, "cam", 1);
 	all->campos.x = (double)cam->px;
 	all->campos.y = (double)cam->py;

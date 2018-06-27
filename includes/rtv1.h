@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/26 15:21:13 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/06/27 09:58:15 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct		s_all
 
 void				ft_parse_csv(char *xml, t_all *all);
 t_scene				*ft_find_link(t_scene *scene, char name[], int i);
-void				ft_draw(t_all *all);
+void				ft_draw(t_all all);
 void				ft_init_mlx(t_all *all);
 void				ft_ray_tracing(t_all *all);
 
