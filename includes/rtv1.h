@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/27 15:39:19 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:54:19 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@
 # define WIN_Y			192
 # define INCR_X			PLAN_W / (double)WIN_X
 # define INCR_Y			PLAN_H / (double)WIN_Y
+
+# ifdef __linux__
+#  define ESC			65307
+#  define L_CLIC		1
+# else
+#  define ESC			53
+#  define L_CLIC		1
+# endif
 
 typedef struct		s_mlx
 {

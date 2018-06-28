@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:09:38 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/27 14:54:46 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/28 11:17:11 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_quit(void)
 	exit(0);
 }
 
-void	ft_draw(t_all all)
+void		ft_draw(t_all all)
 {
 	int	i;
 	int	j;
