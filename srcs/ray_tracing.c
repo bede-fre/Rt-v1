@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/29 15:07:35 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/29 15:45:47 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,33 @@ static void	ft_find_coord_pixel(t_all *all, int x, int y)
 
 void		ft_ray_tracing(t_all *all, int x, int y)
 {
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+	double	t1;
+	double	t2;
+
 	ft_init_values(all);
 	ft_find_coord_pixel(all, x, y);
 	printf("[%.4f %.4f %.4f]\n", all->pointpos.x, all->pointpos.y, all->pointpos.z);
+	a = pow(all->pointpos.x, 2.0) + pow(all->pointpos.y, 2.0) + pow(all->pointpos.z, 2.0);
+	b = 2.0 * (all->pointpos.x * (all->campos.x - all->scene.px) + all->pointpos.y * (all->campos.y - all->scene.py) + all->pointpos.z * (all->campos.z - all->scene.pz));
+	c = (pow(all->campos.x - all->scene.px, 2.0) + (pow(all->campos.y - all->scene.py, 2.0) + pow(all->campos.z - all->scene.pz, 2.0)) - pow(all->scene.p5, 2.0));
+	d = pow(b, 2.0) - 4.0 * a * c;
+	t1 = 0;
+	t2 = 0;
+	if (d > 0)
+	{
+		t1 = (-b + sqrt(d)) / (2.0 * a);
+		t2 = (-b - sqrt(d)) / (2.0 * a);
+		printf("t1: %.2f - t2: %.2f\n", t1, t2);
+	}
+	else if (d == 0)
+	{
+		t1 = -b / (2.0 * a);
+		printf("t: %.2f\n", t1);
+	}
+	else
+		printf("pas de solution reel\n");
 }
