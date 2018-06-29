@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/29 14:55:23 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/29 17:05:32 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct		s_all
 	t_coord_3d		pointpos;
 	t_coord_3d		normpos;
 	char			elem_lst[ELEM_LIST_LEN][ELEM_LEN];
+	double			lg;
 }					t_all;
 
 void				ft_parse_csv(char *xml, t_all *all);
