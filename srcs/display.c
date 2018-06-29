@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:09:38 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/28 11:17:11 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/29 09:58:18 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		ft_draw(t_all all)
 	{
 		j = -1;
 		while (++j < 50)
-			mlx_pixel_put(all.ptr.mlx, all.ptr.win, 50 + i, 50 + j, 0xFF0000);
+			mlx_pixel_put(all.ptr.mlx, all.ptr.win, 70 + i, 40 + j, 0xFF0000);
 	}
 	mlx_hook(all.ptr.win, 17, 0L, ft_quit, 0);
 	mlx_hook(all.ptr.win, 2, (1L << 0), ft_key_press, 0);

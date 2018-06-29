@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/06/28 15:16:20 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/29 15:07:35 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,21 @@ static void	ft_init_values(t_all *all)
 	all->campos.x = (double)cam->px;
 	all->campos.y = (double)cam->py;
 	all->campos.z = (double)cam->pz;
+
 }
 
 static void	ft_find_coord_pixel(t_all *all, int x, int y)
 {
-	all->pointpos.x = (-PLAN_W / 2.0) + 0.5 * INCR_X + x * INCR_X;
-	all->pointpos.y = -((-PLAN_H / 2.0) + 0.5 * INCR_Y + y * INCR_Y);
-	all->pointpos.z = 0.0;
+	all->pointpos.x = all->campos.x - 1.0 * (PLAN_W / 2.0);
+	all->pointpos.y = all->campos.y + 1.0 * (PLAN_H / 2.0);
+	all->pointpos.z = all->campos.z + 1.0 * PLAN_D;
+	all->pointpos.x = all->pointpos.x + (double)x * INCR_X;
+	all->pointpos.y = all->pointpos.y - (double)y * INCR_Y;
 }
 
 void		ft_ray_tracing(t_all *all, int x, int y)
 {
 	ft_init_values(all);
 	ft_find_coord_pixel(all, x, y);
-	printf("[%.4f %.4f %.4f]\n", all->pointpos.x - all->campos.x, all->pointpos.y - all->campos.y, all->pointpos.z - all->campos.z);
+	printf("[%.4f %.4f %.4f]\n", all->pointpos.x, all->pointpos.y, all->pointpos.z);
 }

@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/28 15:54:19 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/06/29 14:55:23 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # define ELEM_LIST_LEN	6
 # define ELEM_LEN		10
 # define COL_LEN		12
-# define PLAN_D			10.0
-# define PLAN_W			24.0
-# define PLAN_H			18.0
-# define WIN_X			256
-# define WIN_Y			192
+# define PLAN_D			1.0
+# define PLAN_W			1.0
+# define PLAN_H			1.0
+# define WIN_X			800
+# define WIN_Y			800
 # define INCR_X			PLAN_W / (double)WIN_X
 # define INCR_Y			PLAN_H / (double)WIN_Y
 
