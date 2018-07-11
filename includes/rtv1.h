@@ -1,3 +1,5 @@
+
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +8,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/07/10 17:56:17 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/07/11 10:45:57 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +108,9 @@ void				ft_init_mlx(t_all *all);
 void				ft_ray_tracing(t_all *all, int x, int y);
 int					ft_key_press(int key, void *p);
 int					ft_button_press(int button, int x, int y, t_all *all);
+double				ft_sphere(t_all *all, t_scene *tp);
+double				ft_plane(t_all *all);
+double				ft_cone(t_all *all, t_scene *tp);
+double				ft_cylinder(t_all *all, t_scene *tp);
 
 #endif

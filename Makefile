@@ -6,7 +6,7 @@
 #    By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 12:18:12 by lguiller          #+#    #+#              #
-#    Updated: 2018/06/28 14:00:03 by lguiller         ###   ########.fr        #
+#    Updated: 2018/07/11 10:47:15 by bede-fre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@
 
 OPE_SYS			= $(shell uname)
 NAME			= rtv1
-SRCS1			= main.c parse_csv.c ray_tracing.c mouse.c display.c
+SRCS1			= main.c parse_csv.c ray_tracing.c mouse.c display.c \
+				equations.c
 SRCS			= $(addprefix $(SRCS_DIR), $(SRCS1))
 OBJS			= $(addprefix $(OBJS_DIR), $(SRCS1:.c=.o))
 SRCS_DIR		= srcs/

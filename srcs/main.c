@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:06:17 by lguiller          #+#    #+#             */
-/*   Updated: 2018/06/27 09:58:09 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/11 10:48:38 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void	ft_free_lst(t_scene *scene)
 static void	ft_init_elem_lst(t_all *all)
 {
 	int			i;
-	const char	elem_lst[ELEM_LIST_LEN][ELEM_LEN] = {"cam", "spot", "plan",
-		"sphere", "cone", "barrel"};
+	const char	elem_lst[ELEM_LIST_LEN][ELEM_LEN] = {"cam", "spot", "plane",
+		"sphere", "cone", "cylinder"};
 
 	i = -1;
 	while (++i < ELEM_LIST_LEN)
