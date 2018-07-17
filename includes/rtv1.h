@@ -71,6 +71,16 @@ typedef struct		s_coord_3d
 	double			z;
 }					t_coord_3d;
 
+typedef struct		s_equ
+{
+	double			a;
+	double			b;
+	double			c;
+	double			d;
+	double			t1;
+	double			t2;
+}					t_equ;
+
 typedef struct		s_scene
 {
 	char			*name;

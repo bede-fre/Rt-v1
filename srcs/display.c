@@ -6,11 +6,12 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:09:38 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/10 14:37:56 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/07/16 09:36:57 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
 /*
 static int	ft_print_coord(int x, int y, void *p)
 {

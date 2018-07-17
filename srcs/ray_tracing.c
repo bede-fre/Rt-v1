@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/11 10:48:54 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/07/17 12:22:31 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	ft_init_values(t_all *all)
 	all->campos.x = (double)cam->px;
 	all->campos.y = (double)cam->py;
 	all->campos.z = (double)cam->pz;
-
 }
 
 static void	ft_find_coord_pixel(t_all *all, int x, int y)
@@ -58,8 +57,8 @@ void		ft_ray_tracing(t_all *all, int x, int y)
 //	printf("[%.4f %.4f %.4f %.4f]\n", all->pointpos.x, all->pointpos.y, all->pointpos.z, all->lg);
 //	printf("[%.4f %.4f %.4f]\n", all->pointpos.x/all->lg, all->pointpos.y/all->lg, all->pointpos.z/ all->lg);
 	tp = &all->scene;
-	d = 0.0;
 	color = 0;
+	d = 0.0;
 	all->d = -1.0;
 	while (tp)
 	{
@@ -73,22 +72,14 @@ void		ft_ray_tracing(t_all *all, int x, int y)
 			d = ft_cylinder(all, tp);
 		if (d >= 0.0)
 		{
-			if (all->d < 0.0)
-			{
-				all->d = d;
-				color = tp->p2;
-			}
-			if (d < all->d)
-			{
-				all->d = d;
-				color = tp->p2;
-			}
+			if (all->d < 0.0 && (all->d = d))
+				color = ft_rgba(tp->p1, tp->p2, tp->p3, 0);
+			if (d < all->d && (all->d = d))
+				color = ft_rgba(tp->p1, tp->p2, tp->p3, 0);
 		}
 		tp = tp->next;
 	}
-//	printf("[%.4f]\n", all->d);
+	//	printf("[%.4f]\n", all->d);
 	if (all->d >= 0.0)
-	{
 		mlx_pixel_put(all->ptr.mlx, all->ptr.win, x, y, color);
-	}
 }
