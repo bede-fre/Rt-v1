@@ -104,11 +104,13 @@ typedef struct		s_all
 	t_scene			scene;
 	t_coord_2d		mouse;
 	t_coord_3d		campos;
+	t_coord_3d		spotpos;
 	t_coord_3d		pointpos;
-	t_coord_3d		normpos;
+	t_coord_3d		univect;
 	char			elem_lst[ELEM_LIST_LEN][ELEM_LEN];
 	double			lg;
 	double			d;
+	int				test;
 }					t_all;
 
 void				ft_parse_csv(char *xml, t_all *all);
@@ -119,7 +121,7 @@ void				ft_ray_tracing(t_all *all, int x, int y);
 int					ft_key_press(int key, void *p);
 int					ft_button_press(int button, int x, int y, t_all *all);
 double				ft_sphere(t_all *all, t_scene *tp);
-double				ft_plane(t_all *all);
+double				ft_plane(t_all *all, t_scene *tp);
 double				ft_cone(t_all *all, t_scene *tp);
 double				ft_cylinder(t_all *all, t_scene *tp);
 

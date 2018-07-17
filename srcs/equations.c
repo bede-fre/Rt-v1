@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/16 11:07:33 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/17 15:46:56 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ double	ft_sphere(t_all *all, t_scene *tp)
 {
 	t_equ	p;
 
-	p.a = pow(all->pointpos.x / all->lg, 2.0) +
-		pow(all->pointpos.y / all->lg, 2.0) +
-		pow(all->pointpos.z / all->lg, 2.0);
-	p.b = ((all->pointpos.x / all->lg) * (all->campos.x - (double)tp->px) +
-		(all->pointpos.y / all->lg) * (all->campos.y - (double)tp->py) +
-		(all->pointpos.z / all->lg) * (all->campos.z - (double)tp->pz)) * 2.0;
+	p.a = pow(all->univect.x, 2.0) + pow(all->univect.y, 2.0) +
+		pow(all->univect.z, 2.0);
+	p.b = (all->univect.x * (all->campos.x - (double)tp->px) + all->univect.y *
+		(all->campos.y - (double)tp->py) + all->univect.z *
+		(all->campos.z - (double)tp->pz)) * 2.0;
 	p.c = (pow(all->campos.x - (double)tp->px, 2.0) +
 		(pow(all->campos.y - (double)tp->py, 2.0) +
 		pow(all->campos.z - (double)all->scene.pz, 2.0)) -
@@ -37,17 +36,16 @@ double	ft_sphere(t_all *all, t_scene *tp)
 	return ((p.d == 0) ? p.t1 = -p.b / (2.0 * p.a) : -1);
 }
 
-double	ft_plane(t_all *all)
+double	ft_plane(t_all *all, t_scene *tp)
 {
 	double	t;
 
-	t = -((((double)all->scene.px * (all->campos.x - all->pointpos.x))
-		+ ((double)all->scene.py * (all->campos.y - all->pointpos.y))
-		+ ((double)all->scene.pz * (all->campos.z - all->pointpos.z))
-		+ (double)all->scene.p3)
-		/ (((double)all->scene.px * (all->pointpos.x / all->lg))
-		+ ((double)all->scene.py * (all->pointpos.y / all->lg))
-		+ ((double)all->scene.pz * (all->pointpos.z / all->lg))));
+	t = -((((double)tp->px * (all->campos.x - all->pointpos.x))
+		+ ((double)tp->py * (all->campos.y - all->pointpos.y))
+		+ ((double)tp->pz * (all->campos.z - all->pointpos.z))
+		+ (double)tp->p4) / (((double)tp->px * all->univect.x)
+		+ ((double)tp->py * all->univect.y)
+		+ ((double)tp->pz * all->univect.z)));
 //	printf("[%.4f]\n", t);
 	if (t > 0.0001)
 		return (t);
@@ -72,11 +70,11 @@ double	ft_cylinder(t_all *all, t_scene *tp)
 	double	t2;
 
 	printf("[%.4f]\n", all->lg);
-	a = pow(all->pointpos.x / all->lg, 2.0) + pow(all->pointpos.y / all->lg, 2.0);
+	a = pow(all->univect.x, 2.0) + pow(all->univect.y, 2.0);
 	printf("pointpos[%.4f %.4f %.4f]\n", all->pointpos.x, all->pointpos.y, all->pointpos.z);
 	printf("campos[%.4f %.4f %.4f]\n", all->campos.x, all->campos.y, all->campos.z);
-	b = 2.0 * ((all->pointpos.x / all->lg) * (all->campos.x - (double)tp->px)
-		+ (all->pointpos.y / all->lg) * (all->campos.y - (double)tp->py));
+	b = 2.0 * (all->univect.x * (all->campos.x - (double)tp->px)
+		+ all->univect.y * (all->campos.y - (double)tp->py));
 	c = (pow(all->campos.x - (double)tp->px, 2.0)
 		+ (pow(all->campos.y - (double)tp->py, 2.0)) - pow((double)tp->p4, 2.0));
 	d = pow(b, 2.0) - 4.0 * a * c;
