@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/18 10:21:45 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/18 10:49:56 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ double	ft_sphere(t_all *all, t_scene *tp)
 		(all->campos.z - (double)tp->pz)) * 2.0;
 	p.c = (pow(all->campos.x - (double)tp->px, 2.0) +
 		(pow(all->campos.y - (double)tp->py, 2.0) +
-		pow(all->campos.z - (double)all->scene.pz, 2.0)) -
+		pow(all->campos.z - (double)tp->pz, 2.0)) -
 		pow((double)tp->p4, 2.0));
 	p.d = pow(p.b, 2.0) - 4.0 * p.a * p.c;
 	if (p.d > 0)
