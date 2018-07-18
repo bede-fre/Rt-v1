@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:05:31 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/17 13:45:28 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/18 14:46:45 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,7 @@ void	ft_init_mlx(t_all *all)
 {
 	all->ptr.mlx = mlx_init();
 	all->ptr.win = mlx_new_window(all->ptr.mlx, WIN_X, WIN_Y, "rtv1");
+	all->ptr.img = mlx_new_image(all->ptr.mlx, WIN_X, WIN_Y);
+	all->ptr.data = mlx_get_data_addr(all->ptr.img, &all->ptr.bpp, &all->ptr.sl,
+		&all->ptr.endian);
 }

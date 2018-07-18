@@ -1,5 +1,3 @@
-
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -8,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/07/11 10:45:57 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/07/18 14:38:52 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +40,11 @@ typedef struct		s_mlx
 {
 	void			*mlx;
 	void			*win;
+	void			*img;
+	char			*data;
+	int				bpp;
+	int				endian;
+	int				sl;
 }					t_mlx;
 
 typedef struct		s_gnl
@@ -98,15 +101,27 @@ typedef struct		s_scene
 	struct s_scene	*next;
 }					t_scene;
 
+typedef struct		s_shadow
+{
+	t_coord_3d	p;
+	t_coord_3d	vect_norme;
+	t_coord_3d	vect_light;
+	t_coord_3d	uni_light;
+	t_scene		*spot;
+	double		angle;
+	double		d;
+}					t_shadow;
+
 typedef struct		s_all
 {
 	t_mlx			ptr;
 	t_scene			scene;
+	t_scene			*cam;
+	t_scene			*spot;
 	t_coord_2d		mouse;
-	t_coord_3d		campos;
-	t_coord_3d		spotpos;
 	t_coord_3d		pointpos;
 	t_coord_3d		univect;
+	t_coord_3d		campos;
 	char			elem_lst[ELEM_LIST_LEN][ELEM_LEN];
 	double			lg;
 	double			d;
@@ -115,13 +130,26 @@ typedef struct		s_all
 
 typedef double		(*t_funct)(t_all*, t_scene*, t_coord_3d*, t_coord_3d*);
 
+typedef struct		s_rt
+{
+	t_scene			*tp;
+	t_scene			*good;
+	t_funct			f;
+	double			d;
+	int				color;
+	int				first;
+}					t_rt;
+
 void				ft_parse_csv(char *xml, t_all *all);
+void				ft_fill_pixel(t_mlx *mlx, int x, int y, int col);
 t_scene				*ft_find_link(t_scene *scene, char name[], int i);
+t_funct				ft_get_funct(char *name);
 void				ft_draw(t_all all);
 void				ft_init_mlx(t_all *all);
 void				ft_ray_tracing(t_all *all, int x, int y);
 int					ft_key_press(int key, void *p);
 int					ft_button_press(int button, int x, int y, t_all *all);
+int					ft_shadow_object(t_all *all, t_scene *tp, double d);
 double				ft_sphere(t_all *all, t_scene *tp, t_coord_3d *uni,
 		t_coord_3d *pos);
 double				ft_plane(t_all *all, t_scene *tp, t_coord_3d *uni,
