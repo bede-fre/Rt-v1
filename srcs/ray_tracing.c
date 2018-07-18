@@ -6,13 +6,13 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/17 16:09:50 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/18 10:14:43 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_scene		*ft_find_link(t_scene *scene, char name[], int i)
+t_scene			*ft_find_link(t_scene *scene, char name[], int i)
 {
 	t_scene	*tp;
 
@@ -26,7 +26,7 @@ t_scene		*ft_find_link(t_scene *scene, char name[], int i)
 	return (NULL);
 }
 
-static void	ft_init_values(t_all *all)
+static void		ft_init_values(t_all *all)
 {
 	t_scene		*cam;
 	t_scene		*spot;
@@ -43,7 +43,7 @@ static void	ft_init_values(t_all *all)
 	all->spotpos.z = (double)spot->pz;
 }
 
-static void	ft_find_coord_pixel(t_all *all, int x, int y)
+static void		ft_find_coord_pixel(t_all *all, int x, int y)
 {
 	all->pointpos.x = all->campos.x - 1.0 * (PLAN_W / 2.0);
 	all->pointpos.y = all->campos.y + 1.0 * (PLAN_H / 2.0);
@@ -56,7 +56,7 @@ static void	ft_find_coord_pixel(t_all *all, int x, int y)
 	all->univect.z = all->pointpos.z / all->lg;
 }
 
-static int	ft_shadow(t_all *all, t_scene *tp, double d)
+static int		ft_shadow(t_all *all, t_scene *tp, double d)
 {
 	t_coord_3d	p;
 	t_coord_3d	vect_norme;
@@ -80,18 +80,32 @@ static int	ft_shadow(t_all *all, t_scene *tp, double d)
 	return (ft_rgba(tp->p1 * angle, tp->p2 * angle, tp->p3 * angle, 0));
 }
 
-void		ft_ray_tracing(t_all *all, int x, int y)
+static t_funct	ft_get_funct(char *name)
+{
+	const char		*shape_name[] = {"sphere", "plane", "cone", "cylinder"};
+	const t_funct	function_name[] = {&ft_sphere, &ft_plane, &ft_cone, &ft_cylinder};
+	int				i;
+
+	i = -1;
+	while (++i < ELEM_LIST_LEN - 2)
+	{
+		if (ft_strequ(name, shape_name[i]) == 1)
+			return (function_name[i]);
+	}
+	return (NULL);
+}
+
+void			ft_ray_tracing(t_all *all, int x, int y)
 {
 	t_scene	*tp;
 	t_scene	*good;
+	t_funct	f;
 	double	d;
 	int		color;
 	int		first;
 
 	ft_init_values(all);
 	ft_find_coord_pixel(all, x, y);
-//	printf("[%.4f %.4f %.4f %.4f]\n", all->pointpos.x, all->pointpos.y, all->pointpos.z, all->lg);
-//	printf("[%.4f %.4f %.4f]\n", all->pointpos.x/all->lg, all->pointpos.y/all->lg, all->pointpos.z/ all->lg);
 	tp = &all->scene;
 	color = 0;
 	first = 0;
@@ -100,28 +114,19 @@ void		ft_ray_tracing(t_all *all, int x, int y)
 	good = NULL;
 	while (tp)
 	{
-		if (ft_strequ(tp->name, "sphere"))
-			d = ft_sphere(all, tp);
-		else if (ft_strequ(tp->name, "plane"))
-			d = ft_plane(all, tp);
-		else if (ft_strequ(tp->name, "cone"))
-			d = ft_cone(all, tp);
-		else if (ft_strequ(tp->name, "cylinder"))
-			d = ft_cylinder(all, tp);
+		if ((f = ft_get_funct(tp->name)))
+			d = f(all, tp);
 		if (d >= 0.0)
-		{
 			if (d < all->d || ++first == 1)
 			{
 				all->d = d;
 				good = tp;
 				color = ft_rgba(tp->p1, tp->p2, tp->p3, 0);
 			}
-		}
 		tp = tp->next;
 	}
 	if (all->test == 1)
 		printf("[%.4f]\n", all->d);
-//	if (all->d >= 0.0)
 	if (good)
 		mlx_pixel_put(all->ptr.mlx, all->ptr.win, x, y, ft_shadow(all, good, all->d));
 }

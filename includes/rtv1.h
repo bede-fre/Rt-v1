@@ -113,6 +113,8 @@ typedef struct		s_all
 	int				test;
 }					t_all;
 
+typedef double		(*t_funct)(t_all*, t_scene*);
+
 void				ft_parse_csv(char *xml, t_all *all);
 t_scene				*ft_find_link(t_scene *scene, char name[], int i);
 void				ft_draw(t_all all);
