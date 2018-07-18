@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/18 14:38:14 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/07/18 15:51:32 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,9 @@ void			ft_ray_tracing(t_all *all, int x, int y)
 		rt.tp = rt.tp->next;
 	}
 	if (all->test == 1)
-		printf("[%.4f]\n", all->d);
-	if (rt.good)
+		printf("distance: %.4f\n", all->d);
+	if (rt.good && ft_strequ(rt.good->name, "sphere") == 1)
 		ft_fill_pixel(&all->ptr, x, y, ft_shadow_object(all, rt.good, all->d));
+	else if (rt.good)
+		ft_fill_pixel(&all->ptr, x, y, ft_rgba(rt.good->p1, rt.good->p2, rt.good->p3, 0));
 }

@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/18 14:05:00 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/07/18 15:30:00 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_coord_3d *uni,
 			if ((f = ft_get_funct(tmp->name)))
 			{
 				d = f(all, tmp, uni, pos);
-				if (all->test == 1)
-					printf("%.2f\n", d);
 				if (d >= 0.0)
 					return (0.5);
 			}
