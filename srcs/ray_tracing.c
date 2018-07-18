@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/18 10:14:43 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/18 12:11:45 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,30 +56,6 @@ static void		ft_find_coord_pixel(t_all *all, int x, int y)
 	all->univect.z = all->pointpos.z / all->lg;
 }
 
-static int		ft_shadow(t_all *all, t_scene *tp, double d)
-{
-	t_coord_3d	p;
-	t_coord_3d	vect_norme;
-	t_coord_3d	vect_light;
-	t_scene		*spot;
-	double		angle;
-
-	p.x = all->univect.x * d;
-	p.y = all->univect.y * d;
-	p.z = all->univect.z * d;
-	vect_norme.x = p.x - tp->px;
-	vect_norme.y = p.y - tp->py;
-	vect_norme.z = p.z - tp->pz;
-	vect_light.x = all->spotpos.x - p.x;
-	vect_light.y = all->spotpos.y - p.y;
-	vect_light.z = all->spotpos.z - p.z;
-	angle = (vect_norme.x * vect_light.x + vect_norme.y * vect_light.y + vect_norme.z * vect_light.z) / sqrt((pow(vect_norme.x, 2.0) + pow(vect_norme.y, 2.0) + pow(vect_norme.z, 2.0)) * (pow(vect_light.x, 2.0) + pow(vect_light.y, 2.0) + pow(vect_light.z, 2.0)));
-	angle = (angle < 0) ? 0 : angle;
-	spot = ft_find_link(&all->scene, "spot", 1);
-	angle = angle * (spot->p1 / 100.0);
-	return (ft_rgba(tp->p1 * angle, tp->p2 * angle, tp->p3 * angle, 0));
-}
-
 static t_funct	ft_get_funct(char *name)
 {
 	const char		*shape_name[] = {"sphere", "plane", "cone", "cylinder"};
@@ -93,6 +69,62 @@ static t_funct	ft_get_funct(char *name)
 			return (function_name[i]);
 	}
 	return (NULL);
+}
+
+static double	ft_shadow_proj(t_all *all, t_scene *tp, t_coord_3d *uni, t_coord_3d *pos)
+{
+	t_funct	f;
+	t_scene	*tmp;
+	double	d;
+
+	d = 0.0;
+	tmp = &all->scene;
+	while (tmp)
+	{
+		if (tmp != tp)
+			if ((f = ft_get_funct(tmp->name)))
+			{
+				d = f(all, tmp, uni, pos);
+				if (all->test == 1)
+					printf("%.2f\n", d);
+				if (d >= 0.0)
+					return (0.5);
+			}
+		tmp = tmp->next;
+	}
+	return (1.0);
+}
+
+static int		ft_shadow(t_all *all, t_scene *tp, double d)
+{
+	t_coord_3d	p;
+	t_coord_3d	vect_norme;
+	t_coord_3d	vect_light;
+	t_coord_3d	uni_light;
+	t_scene		*spot;
+	double		angle;
+	double		d2;
+
+	p.x = all->univect.x * d;
+	p.y = all->univect.y * d;
+	p.z = all->univect.z * d;
+	vect_norme.x = p.x - tp->px;
+	vect_norme.y = p.y - tp->py;
+	vect_norme.z = p.z - tp->pz;
+	vect_light.x = all->spotpos.x - p.x;
+	vect_light.y = all->spotpos.y - p.y;
+	vect_light.z = all->spotpos.z - p.z;
+	angle = (vect_norme.x * vect_light.x + vect_norme.y * vect_light.y + vect_norme.z * vect_light.z) / sqrt((pow(vect_norme.x, 2.0) + pow(vect_norme.y, 2.0) + pow(vect_norme.z, 2.0)) * (pow(vect_light.x, 2.0) + pow(vect_light.y, 2.0) + pow(vect_light.z, 2.0)));
+	angle = (angle < 0) ? 0 : angle;
+	spot = ft_find_link(&all->scene, "spot", 1);
+	d2 = sqrt(pow(vect_light.x, 2.0) + pow(vect_light.y, 2.0) + pow(vect_light.z, 2.0));
+	uni_light.x = vect_light.x / d2;
+	uni_light.y = vect_light.y / d2;
+	uni_light.z = vect_light.z / d2;
+	if (all->test == 1)
+		printf("%.2f\n[%.2f; %.2f; %.2f]\n", d2, uni_light.x, uni_light.y, uni_light.z);
+	angle = (angle * (spot->p1 / 100.0)) * ft_shadow_proj(all, tp, &uni_light, &p);
+	return (ft_rgba(tp->p1 * angle, tp->p2 * angle, tp->p3 * angle, 0));
 }
 
 void			ft_ray_tracing(t_all *all, int x, int y)
@@ -115,7 +147,7 @@ void			ft_ray_tracing(t_all *all, int x, int y)
 	while (tp)
 	{
 		if ((f = ft_get_funct(tp->name)))
-			d = f(all, tp);
+			d = f(all, tp, &all->univect, &all->campos);
 		if (d >= 0.0)
 			if (d < all->d || ++first == 1)
 			{

@@ -113,7 +113,7 @@ typedef struct		s_all
 	int				test;
 }					t_all;
 
-typedef double		(*t_funct)(t_all*, t_scene*);
+typedef double		(*t_funct)(t_all*, t_scene*, t_coord_3d*, t_coord_3d*);
 
 void				ft_parse_csv(char *xml, t_all *all);
 t_scene				*ft_find_link(t_scene *scene, char name[], int i);
@@ -122,9 +122,13 @@ void				ft_init_mlx(t_all *all);
 void				ft_ray_tracing(t_all *all, int x, int y);
 int					ft_key_press(int key, void *p);
 int					ft_button_press(int button, int x, int y, t_all *all);
-double				ft_sphere(t_all *all, t_scene *tp);
-double				ft_plane(t_all *all, t_scene *tp);
-double				ft_cone(t_all *all, t_scene *tp);
-double				ft_cylinder(t_all *all, t_scene *tp);
+double				ft_sphere(t_all *all, t_scene *tp, t_coord_3d *uni,
+		t_coord_3d *pos);
+double				ft_plane(t_all *all, t_scene *tp, t_coord_3d *uni,
+		t_coord_3d *pos);
+double				ft_cone(t_all *all, t_scene *tp, t_coord_3d *uni,
+		t_coord_3d *pos);
+double				ft_cylinder(t_all *all, t_scene *tp, t_coord_3d *uni,
+		t_coord_3d *pos);
 
 #endif
