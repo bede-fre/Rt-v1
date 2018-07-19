@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/18 15:30:00 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/19 13:39:27 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static void		ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp, double d)
 	shad->uni_light.z = shad->vect_light.z / shad->d;
 }
 
-static double	ft_shadow_proj(t_all *all, t_scene *tp, t_coord_3d *uni,
-	t_coord_3d *pos)
+static double	ft_shadow_proj(t_all *all, t_scene *tp, t_shadow *shad)
 {
 	t_funct	f;
 	t_scene	*tmp;
@@ -45,8 +44,8 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_coord_3d *uni,
 		if (tmp != tp)
 			if ((f = ft_get_funct(tmp->name)))
 			{
-				d = f(all, tmp, uni, pos);
-				if (d >= 0.0)
+				d = f(all, tmp, &shad->uni_light, &shad->p);
+				if (d >= 0.0 && floor(d) <= shad->d)
 					return (0.5);
 			}
 		tmp = tmp->next;
@@ -59,14 +58,17 @@ int				ft_shadow_object(t_all *all, t_scene *tp, double d)
 	t_shadow	shad;
 
 	ft_init_vect(all, &shad, tp, d);
+	// -------------- NE FONCTIONNE PAS SI NOUS SOMME A L'INTERIEUR D"UN OBJET
 	shad.angle = (shad.vect_norme.x * shad.vect_light.x + shad.vect_norme.y
 		* shad.vect_light.y + shad.vect_norme.z * shad.vect_light.z)
 		/ sqrt((pow(shad.vect_norme.x, 2.0) + pow(shad.vect_norme.y, 2.0)
 		+ pow(shad.vect_norme.z, 2.0)) * (pow(shad.vect_light.x, 2.0)
 		+ pow(shad.vect_light.y, 2.0) + pow(shad.vect_light.z, 2.0)));
-	shad.angle = (shad.angle < 0) ? 0 : shad.angle;
+	shad.angle = (shad.angle < 0.0) ? 0.0 : shad.angle;
 	shad.angle = (shad.angle * (shad.spot->p1 / 100.0))
-		* ft_shadow_proj(all, tp, &shad.uni_light, &shad.p);
+		* ft_shadow_proj(all, tp, &shad);
+	if (all->test)
+		printf("%f\n", ft_shadow_proj(all, tp, &shad));
 	return (ft_rgba(tp->p1 * shad.angle, tp->p2 * shad.angle,
 		tp->p3 * shad.angle, 0));
 }

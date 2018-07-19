@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/07/18 14:38:52 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/07/19 13:23:50 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ typedef struct		s_all
 	t_scene			*cam;
 	t_scene			*spot;
 	t_coord_2d		mouse;
-	t_coord_3d		pointpos;
 	t_coord_3d		univect;
 	t_coord_3d		campos;
 	char			elem_lst[ELEM_LIST_LEN][ELEM_LEN];

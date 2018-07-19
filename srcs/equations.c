@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/18 16:10:52 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/19 13:24:49 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,21 @@ double	ft_sphere(t_all *all, t_scene *tp, t_coord_3d *uni, t_coord_3d *pos)
 		return (-1.0);
 	p.t1 = (-p.b + sqrt(p.d)) / (2.0 * p.a);
 	p.t2 = (-p.b - sqrt(p.d)) / (2.0 * p.a);
-	return ((p.t1 < p.t2) ? p.t1 : p.t2);
+	if (p.t1 < 0.0 && p.t2 < 0.0)
+		return (-1.0);
+	if (p.t1 >= 0.0 && p.t2 >= 0.0)
+		return ((p.t1 < p.t2) ? p.t1 : p.t2);
+	else
+		return ((p.t1 >= 0.0) ? p.t1 : p.t2);
 }
 
 double	ft_plane(t_all *all, t_scene *tp, t_coord_3d *uni, t_coord_3d *pos)
 {
 	double	t;
 
-	t = -((((double)tp->px * (pos->x - all->pointpos.x))
-		+ ((double)tp->py * (pos->y - all->pointpos.y))
-		+ ((double)tp->pz * (pos->z - all->pointpos.z))
+	t = -((((double)tp->px * (pos->x - all->cam->px))
+		+ ((double)tp->py * (pos->y - all->cam->py))
+		+ ((double)tp->pz * (pos->z - all->cam->pz))
 		+ (double)tp->p4) / (((double)tp->px * uni->x)
 		+ ((double)tp->py * uni->y)
 		+ ((double)tp->pz * uni->z)));
