@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/19 13:39:27 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/20 11:12:26 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void		ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp, double d)
 {
-	shad->p.x = all->univect.x * d;
-	shad->p.y = all->univect.y * d;
-	shad->p.z = all->univect.z * d;
+	shad->p.x = all->campos.x + all->univect.x * d;
+	shad->p.y = all->campos.y + all->univect.y * d;
+	shad->p.z = all->campos.z + all->univect.z * d;
 	shad->vect_norme.x = shad->p.x - tp->px;
 	shad->vect_norme.y = shad->p.y - tp->py;
 	shad->vect_norme.z = shad->p.z - tp->pz;
