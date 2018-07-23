@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:09:38 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/18 14:51:09 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/07/23 09:08:10 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void		ft_draw(t_all all)
 
 	ft_init_mlx(&all);
 	i = -1;
-	while (++i < 800)
+	while (++i < WIN_X)
 	{
 		j = -1;
-		while (++j < 800)
+		while (++j < WIN_Y)
 			ft_ray_tracing(&all, i, j);
 	}
 	mlx_hook(all.ptr.win, 17, 0L, ft_quit, 0);

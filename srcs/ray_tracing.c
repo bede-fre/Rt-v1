@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/20 11:04:10 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/23 16:45:54 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ static void		ft_find_coord_pixel(t_all *all, int x, int y)
 {
 	t_coord_3d	pointpos;
 
-	pointpos.x = all->cam->px - (PLAN_W / 2.0);
-	pointpos.y = all->cam->py + (PLAN_H / 2.0);
-	pointpos.z = all->cam->pz + PLAN_D;
-	pointpos.x = pointpos.x + (double)x * INCR_X;
-	pointpos.y = pointpos.y - (double)y * INCR_Y;
+	pointpos.x = all->cam->px + (-(1.0 * (PLAN_W / 2.0)) + (0.0 * (PLAN_H / 2.0)) + (0.0 * PLAN_D));
+	pointpos.y = all->cam->py + (-(0.0 * (PLAN_W / 2.0)) + (1.0 * (PLAN_H / 2.0)) + (0.0 * PLAN_D));
+	pointpos.z = all->cam->pz + (-(0.0 * (PLAN_W / 2.0)) + (0.0 * (PLAN_H / 2.0)) + (1.0 * PLAN_D));
+	pointpos.x += ((double)x * INCR_X);
+	pointpos.y -= ((double)y * INCR_Y);
 	all->lg = sqrt(pow(pointpos.x, 2.0) + pow(pointpos.y, 2.0)
 		+ pow(pointpos.z, 2.0));
 	pointpos.x -= all->cam->px;
 	pointpos.y -= all->cam->py;
 	pointpos.z -= all->cam->pz;
-	all->univect.x = pointpos.x / all->lg;
-	all->univect.y = pointpos.y / all->lg;
-	all->univect.z = pointpos.z / all->lg;
+	all->univect.x = (pointpos.x / all->lg);
+	all->univect.y = (pointpos.x / all->lg);
+	all->univect.z = (pointpos.z / all->lg);
 }
 
 t_funct			ft_get_funct(char *name)

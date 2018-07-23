@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/20 11:12:26 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/23 12:27:31 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				ft_shadow_object(t_all *all, t_scene *tp, double d)
 	t_shadow	shad;
 
 	ft_init_vect(all, &shad, tp, d);
-	// -------------- NE FONCTIONNE PAS SI NOUS SOMME A L'INTERIEUR D"UN OBJET
+	// -------------- NE FONCTIONNE PAS SI NOUS SOMME A L'INTERIEUR D'UN OBJET
 	shad.angle = (shad.vect_norme.x * shad.vect_light.x + shad.vect_norme.y
 		* shad.vect_light.y + shad.vect_norme.z * shad.vect_light.z)
 		/ sqrt((pow(shad.vect_norme.x, 2.0) + pow(shad.vect_norme.y, 2.0)
