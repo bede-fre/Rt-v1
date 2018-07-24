@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/23 16:45:54 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/24 09:34:03 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ static void		ft_find_coord_pixel(t_all *all, int x, int y)
 	pointpos.x -= all->cam->px;
 	pointpos.y -= all->cam->py;
 	pointpos.z -= all->cam->pz;
-	all->univect.x = (pointpos.x / all->lg);
-	all->univect.y = (pointpos.x / all->lg);
-	all->univect.z = (pointpos.z / all->lg);
+	all->univect.x = pointpos.x / all->lg;
+	all->univect.y = pointpos.y / all->lg;
+	all->univect.z = pointpos.z / all->lg;
 }
 
 t_funct			ft_get_funct(char *name)
