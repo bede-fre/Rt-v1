@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/23 12:27:31 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/25 15:48:36 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ int				ft_shadow_object(t_all *all, t_scene *tp, double d)
 	shad.angle = (shad.angle < 0.0) ? 0.0 : shad.angle;
 	shad.angle = (shad.angle * (shad.spot->p1 / 100.0))
 		* ft_shadow_proj(all, tp, &shad);
-	if (all->test)
-		printf("%f\n", ft_shadow_proj(all, tp, &shad));
 	return (ft_rgba(tp->p1 * shad.angle, tp->p2 * shad.angle,
 		tp->p3 * shad.angle, 0));
 }
