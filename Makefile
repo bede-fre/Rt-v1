@@ -6,7 +6,7 @@
 #    By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 12:18:12 by lguiller          #+#    #+#              #
-#    Updated: 2018/07/18 13:23:00 by bede-fre         ###   ########.fr        #
+#    Updated: 2018/07/25 19:29:53 by lguiller         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,8 +91,8 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 
 re:
-	@$(MAKE) fclean
-	@$(MAKE)
+	@$(MAKE) -s fclean
+	@$(MAKE) -s
 
 title:
 	@echo $(_RED)
