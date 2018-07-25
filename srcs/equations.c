@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/24 10:53:16 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/25 15:54:30 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ double	ft_cone(t_all *all, t_scene *tp, t_coord_3d *uni, t_coord_3d *pos)
 
 double	ft_cylinder(t_all *all, t_scene *tp, t_coord_3d *uni, t_coord_3d *pos)
 {
-
 	t_equ	p;
 
 	(void)all;
