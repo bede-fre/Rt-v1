@@ -6,20 +6,37 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/25 17:35:00 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/25 18:35:34 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
+static t_coord_3d	ft_start_norm_p(t_shadow *shad, t_scene *tp)
+{
+	t_coord_3d	p;
+
+	if (ft_strequ(tp->name, "sphere") == 1)
+	{
+		p.x = shad->p.x - tp->px;
+		p.y = shad->p.y - tp->py;
+		p.z = shad->p.z - tp->pz;
+	}
+	else
+	{
+		p.x = tp->dx;
+		p.y = tp->dy;
+		p.z = -tp->dz;
+	}
+	return (p);
+}
+
 static void		ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp, double d)
 {
-	shad->p.x = all->cam->px + all->univect.x * d;
+ 	shad->p.x = all->cam->px + all->univect.x * d;
 	shad->p.y = all->cam->py + all->univect.y * d;
 	shad->p.z = all->cam->pz + all->univect.z * d;
-	shad->vect_norme.x = shad->p.x - tp->px;
-	shad->vect_norme.y = shad->p.y - tp->py;
-	shad->vect_norme.z = shad->p.z - tp->pz;
+	shad->vect_norme = ft_start_norm_p(shad, tp);
 	shad->vect_light.x = all->spot->px - shad->p.x;
 	shad->vect_light.y = all->spot->py - shad->p.y;
 	shad->vect_light.z = all->spot->pz - shad->p.z;
@@ -64,7 +81,8 @@ int				ft_shadow_object(t_all *all, t_scene *tp, double d)
 		/ sqrt((pow(shad.vect_norme.x, 2.0) + pow(shad.vect_norme.y, 2.0)
 		+ pow(shad.vect_norme.z, 2.0)) * (pow(shad.vect_light.x, 2.0)
 		+ pow(shad.vect_light.y, 2.0) + pow(shad.vect_light.z, 2.0)));
-	shad.angle = (shad.angle < 0.0) ? 0.0 : shad.angle;
+	shad.angle = (shad.angle < 0.0 && ft_strequ(tp->name, "plan") == 0) ? 0.0 : shad.angle;
+	shad.angle = (ft_strequ(tp->name, "plan")) ? ft_abs(shad.angle) : shad.angle;
 	shad.angle = (shad.angle * (shad.spot->p1 / 100.0))
 		* ft_shadow_proj(all, tp, &shad);
 	return (ft_rgba(tp->p1 * shad.angle, tp->p2 * shad.angle,
