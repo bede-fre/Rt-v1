@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/25 15:54:30 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/25 17:40:51 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,15 @@ double	ft_plane(t_all *all, t_scene *tp, t_coord_3d *uni, t_coord_3d *pos)
 {
 	double	t;
 
-	t = -((((double)tp->px * (pos->x - all->cam->px))
-		+ ((double)tp->py * (pos->y - all->cam->py))
-		+ ((double)tp->pz * (pos->z - all->cam->pz))
-		+ (double)tp->p4) / (((double)tp->px * uni->x)
-		+ ((double)tp->py * uni->y)
-		+ ((double)tp->pz * uni->z)));
-	if (t > 0.0001)
+	(void)all;
+	t = -((((double)tp->dx * (pos->x - tp->px))
+		+ ((double)tp->dy * (pos->y - tp->py))
+		+ ((double)tp->dz * (pos->z - tp->pz))
+		+ (double)tp->p4) /
+		(((double)tp->dx * uni->x)
+		+ ((double)tp->dy * uni->y)
+		+ ((double)tp->dz * uni->z)));
+	if (t != 0.0)
 		return (t);
 	else
 		return (-1.0);

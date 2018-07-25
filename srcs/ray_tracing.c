@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/25 15:54:20 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/25 17:31:21 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,13 @@ t_scene			*ft_find_link(t_scene *scene, char name[], int i)
 
 static void		ft_init_values(t_all *all, t_rt *rt)
 {
-	t_scene		*cam;
-	t_scene		*spot;
-
-	if (!(cam = ft_find_link(&all->scene, "cam", 1)))
+	if (!(all->cam = ft_find_link(&all->scene, "cam", 1)))
 		ft_error("error: no object cam", 1, ft_puterror);
-	if (!(spot = ft_find_link(&all->scene, "spot", 1)))
+	if (!(all->spot = ft_find_link(&all->scene, "spot", 1)))
 		ft_error("error: no object spot", 1, ft_puterror);
-	all->cam = cam;
-	all->spot = spot;
-	all->campos.x = cam->px;
-	all->campos.y = cam->py;
-	all->campos.z = cam->pz;
+	all->campos.x = all->cam->px;
+	all->campos.y = all->cam->py;
+	all->campos.z = all->cam->pz;
 	rt->tp = &all->scene;
 	rt->color = 0;
 	rt->first = 0;
