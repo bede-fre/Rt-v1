@@ -6,7 +6,7 @@
 #    By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 12:18:12 by lguiller          #+#    #+#              #
-#    Updated: 2018/07/26 09:30:03 by lguiller         ###   ########.fr        #
+#    Updated: 2018/07/26 16:02:55 by lguiller         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,16 +23,17 @@ OBJS			= $(addprefix $(OBJS_DIR), $(SRCS1:.c=.o))
 SRCS_DIR		= srcs/
 OBJS_DIR		= objs/
 LIBFT			= libft/libft.a
+LIBVECT			= libvect/libvect.a
 MINILIBX		= $(MLX_DIR)/libmlx.a
 FLAGS			= -Wall -Wextra -Werror -O2 -g
 
 ifeq ($(OPE_SYS), Linux)
 	MLX_DIR		= minilibx_x11
-	INCLUDES	= -I includes -I libft -I $(MLX_DIR) -I /usr/include
+	INCLUDES	= -I includes -I libft -I libvect -I $(MLX_DIR) -I /usr/include
 	FRAMEWORK	= -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm
 else
 	MLX_DIR		= minilibx
-	INCLUDES	= -I includes -I libft -I $(MLX_DIR)
+	INCLUDES	= -I includes -I libft -I libvect -I $(MLX_DIR)
 	FRAMEWORK	= -framework OpenGL -framework Appkit
 endif
 
@@ -59,7 +60,7 @@ _CUT		= "\033[k"
 ##   TARGETS    ##
 ##################
 
-.PHONY: all title libft minilibx create_dir clean fclean re
+.PHONY: all title libft minilibx libvect create_dir clean fclean re
 
 all: $(NAME)
 
@@ -69,11 +70,14 @@ create_dir:
 libft: title
 	@make -sC libft
 
-minilibx: libft
+libvect: libft
+	@make -sC libvect
+
+minilibx: libvect
 	@make -sC $(MLX_DIR) 2>/dev/null
 
 $(NAME): minilibx create_dir $(OBJS)
-	@gcc $(FLAGS) $(OBJS) $(LIBFT) $(FRAMEWORK) $(MINILIBX) -o $(NAME)
+	@gcc $(FLAGS) $(OBJS) $(LIBFT) $(LIBVECT) $(FRAMEWORK) $(MINILIBX) -o $(NAME)
 	@echo $(_CLEAR)$(_YELLOW)"building - "$(_GREEN)$(NAME)$(_END)
 	@echo $(_GREEN)"Done."$(_END)$(_SHOW_CURS)
 
@@ -83,11 +87,13 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 
 clean:
 	@make -sC libft clean
+	@make -sC libvect clean
 	@make -sC $(MLX_DIR) clean
 	@/bin/rm -f $(OBJS)
 
 fclean: clean
 	@make -sC libft fclean
+	@make -sC libvect fclean
 	@/bin/rm -f $(NAME)
 
 re:

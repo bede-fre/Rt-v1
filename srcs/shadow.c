@@ -6,15 +6,15 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/25 18:35:34 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/07/26 15:57:02 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static t_coord_3d	ft_start_norm_p(t_shadow *shad, t_scene *tp)
+static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp)
 {
-	t_coord_3d	p;
+	t_mat3	p;
 
 	if (ft_strequ(tp->name, "sphere") == 1)
 	{
