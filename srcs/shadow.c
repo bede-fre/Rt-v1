@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/06 11:25:35 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/06 13:20:35 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,17 @@ static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp)
 		p.y = shad->p.y - tp->py;
 		p.z = shad->p.z - tp->pz;
 	}
-	else
+	else if (ft_strequ(tp->name, "plane") == 1)
 	{
 		p.x = tp->univect.x;
 		p.y = tp->univect.y;
 		p.z = tp->univect.z;
+	}
+	else
+	{
+		p.x = shad->p.x - tp->px;
+		p.y = shad->p.y - tp->py;
+		p.z = shad->p.z - tp->pz;
 	}
 	return (p);
 }

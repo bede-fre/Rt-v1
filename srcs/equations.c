@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/06 10:47:37 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/06 16:52:55 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,21 @@ double	ft_cone(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 
 double	ft_cylinder(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 {
+	t_mat3	v;
 	t_equ	p;
 
-	p.a = pow(uni->x, 2.0) * (double)tp->dx +
-		pow(uni->y, 2.0) * (double)tp->dy +
-		pow(uni->z, 2.0) * (double)tp->dz;
-	p.b = ((uni->x * (pos->x - (double)tp->px)) * (double)tp->dx +
-		(uni->y * (pos->y - (double)tp->py)) * (double)tp->dy +
-		(uni->z * (pos->z - (double)tp->pz)) * (double)tp->dz) * 2.0;
-	p.c = ((pow(pos->x - (double)tp->px, 2.0)) * (double)tp->dx +
-		(pow(pos->y - (double)tp->py, 2.0)) * (double)tp->dy +
-		(pow(pos->z - (double)tp->pz, 2.0)) * (double)tp->dz) -
+	v.x = 1.0;
+	v.y = 0.0;
+	v.z = 1.0;
+	p.a = pow(uni->x, 2.0) * v.x +
+		pow(uni->y, 2.0) * v.y +
+		pow(uni->z, 2.0) * v.z;
+	p.b = ((uni->x * (pos->x - (double)tp->px)) * v.x +
+		(uni->y * (pos->y - (double)tp->py)) * v.y +
+		(uni->z * (pos->z - (double)tp->pz)) * v.z) * 2.0;
+	p.c = ((pow(pos->x - (double)tp->px, 2.0)) * v.x +
+		(pow(pos->y - (double)tp->py, 2.0)) * v.y +
+		(pow(pos->z - (double)tp->pz, 2.0)) * v.z) -
 		pow((double)tp->p4, 2.0);
 	p.d = pow(p.b, 2.0) - 4.0 * p.a * p.c;
 	if (p.d < 0.0)
