@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/26 16:43:35 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/08/06 10:52:46 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ static void		ft_find_coord_pixel(t_all *all, int x, int y)
 	pointpos.x -= all->cam->px;
 	pointpos.y -= all->cam->py;
 	pointpos.z -= all->cam->pz;
-	all->univect.x = pointpos.x / all->lg;
-	all->univect.y = pointpos.y / all->lg;
-	all->univect.z = pointpos.z / all->lg;
-	ft_rot_x(&all->univect, ft_rad(all->cam->dx));
-	ft_rot_y(&all->univect, ft_rad(all->cam->dy));
-	ft_rot_z(&all->univect, ft_rad(all->cam->dz));
+	all->univ_cam.x = pointpos.x / all->lg;
+	all->univ_cam.y = pointpos.y / all->lg;
+	all->univ_cam.z = pointpos.z / all->lg;
+	ft_rot_x(&all->univ_cam, ft_rad(all->cam->dx));
+	ft_rot_y(&all->univ_cam, ft_rad(all->cam->dy));
+	ft_rot_z(&all->univ_cam, ft_rad(all->cam->dz));
 }
 
 t_funct			ft_get_funct(char *name)
@@ -90,7 +90,7 @@ void			ft_ray_tracing(t_all *all, int x, int y)
 	while (rt.tp)
 	{
 		if ((rt.f = ft_get_funct(rt.tp->name)))
-			rt.d = rt.f(all, rt.tp, &all->univect, &all->campos);
+			rt.d = rt.f(rt.tp, &all->univ_cam, &all->campos);
 		if (rt.d >= 0.0)
 			if (rt.d < all->d || ++rt.first == 1)
 			{

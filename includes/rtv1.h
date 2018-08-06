@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/07/26 15:53:28 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/06 10:52:54 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct		s_scene
 	int				p3;
 	int				p4;
 	int				p5;
+	t_mat3			univect;
 	struct s_scene	*next;
 }					t_scene;
 
@@ -114,14 +115,14 @@ typedef struct		s_all
 	t_scene			*spot;
 	t_coord_2d		mouse;
 	t_mat3			campos;
-	t_mat3			univect;
+	t_mat3			univ_cam;
 	char			elem_lst[ELEM_LIST_LEN][ELEM_LEN];
 	double			lg;
 	double			d;
 	int				test;
 }					t_all;
 
-typedef double		(*t_funct)(t_all*, t_scene*, t_mat3*, t_mat3*);
+typedef double		(*t_funct)(t_scene*, t_mat3*, t_mat3*);
 
 typedef struct		s_rt
 {
@@ -143,9 +144,9 @@ void				ft_ray_tracing(t_all *all, int x, int y);
 int					ft_key_press(int key, void *p);
 int					ft_button_press(int button, int x, int y, t_all *all);
 int					ft_shadow_object(t_all *all, t_scene *tp, double d);
-double				ft_sphere(t_all *all, t_scene *tp, t_mat3 *uni, t_mat3 *pos);
-double				ft_plane(t_all *all, t_scene *tp, t_mat3 *uni, t_mat3 *pos);
-double				ft_cone(t_all *all, t_scene *tp, t_mat3 *uni, t_mat3 *pos);
-double				ft_cylinder(t_all *all, t_scene *tp, t_mat3 *uni, t_mat3 *pos);
+double				ft_sphere(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
+double				ft_plane(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
+double				ft_cone(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
+double				ft_cylinder(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 
 #endif

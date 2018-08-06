@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/07/26 15:57:02 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/06 11:25:35 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp)
 	}
 	else
 	{
-		p.x = tp->dx;
-		p.y = tp->dy;
-		p.z = -tp->dz;
+		p.x = tp->univect.x;
+		p.y = tp->univect.y;
+		p.z = tp->univect.z;
 	}
 	return (p);
 }
 
 static void		ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp, double d)
 {
- 	shad->p.x = all->cam->px + all->univect.x * d;
-	shad->p.y = all->cam->py + all->univect.y * d;
-	shad->p.z = all->cam->pz + all->univect.z * d;
+ 	shad->p.x = all->cam->px + all->univ_cam.x * d;
+	shad->p.y = all->cam->py + all->univ_cam.y * d;
+	shad->p.z = all->cam->pz + all->univ_cam.z * d;
 	shad->vect_norme = ft_start_norm_p(shad, tp);
 	shad->vect_light.x = all->spot->px - shad->p.x;
 	shad->vect_light.y = all->spot->py - shad->p.y;
@@ -61,7 +61,7 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_shadow *shad)
 		if (tmp != tp)
 			if ((f = ft_get_funct(tmp->name)))
 			{
-				d = f(all, tmp, &shad->uni_light, &shad->p);
+				d = f(tmp, &shad->uni_light, &shad->p);
 				if (d >= 0.0 && floor(d) <= shad->d)
 					return (0.5);
 			}
@@ -81,8 +81,8 @@ int				ft_shadow_object(t_all *all, t_scene *tp, double d)
 		/ sqrt((pow(shad.vect_norme.x, 2.0) + pow(shad.vect_norme.y, 2.0)
 		+ pow(shad.vect_norme.z, 2.0)) * (pow(shad.vect_light.x, 2.0)
 		+ pow(shad.vect_light.y, 2.0) + pow(shad.vect_light.z, 2.0)));
-	shad.angle = (shad.angle < 0.0 && ft_strequ(tp->name, "plan") == 0) ? 0.0 : shad.angle;
-	shad.angle = (ft_strequ(tp->name, "plan")) ? ft_abs(shad.angle) : shad.angle;
+	shad.angle = (shad.angle < 0.0 && ft_strequ(tp->name, "plane") == 0) ? 0.0 : shad.angle;
+	shad.angle = (ft_strequ(tp->name, "plane")) ? ft_fabs(shad.angle) : shad.angle;
 	shad.angle = (shad.angle * (shad.spot->p1 / 100.0))
 		* ft_shadow_proj(all, tp, &shad);
 	return (ft_rgba(tp->p1 * shad.angle, tp->p2 * shad.angle,
