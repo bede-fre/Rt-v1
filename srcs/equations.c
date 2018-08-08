@@ -6,13 +6,35 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/07 13:22:00 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/08 15:38:11 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-double	ft_sphere(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
+static t_rot	ft_rotation(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
+{
+	t_rot	new;
+
+	new.uni.x = uni->x;
+	new.uni.y = uni->y;
+	new.uni.z = uni->z;
+	new.uni = ft_rot_x(new.uni, ft_rad(-(double)tp->dx));
+	new.uni = ft_rot_y(new.uni, ft_rad(-(double)tp->dy));
+	new.uni = ft_rot_z(new.uni, ft_rad(-(double)tp->dz));
+	new.pos.x = pos->x - tp->px;
+	new.pos.y = pos->y - tp->py;
+	new.pos.z = pos->z - tp->pz;
+	new.pos = ft_rot_x(new.pos, ft_rad(-(double)tp->dx));
+	new.pos = ft_rot_y(new.pos, ft_rad(-(double)tp->dy));
+	new.pos = ft_rot_z(new.pos, ft_rad(-(double)tp->dz));
+	new.pos.x += tp->px;
+	new.pos.y += tp->py;
+	new.pos.z += tp->pz;
+	return (new);
+}
+
+double			ft_sphere(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 {
 	t_equ	p;
 
@@ -37,7 +59,7 @@ double	ft_sphere(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 		return ((p.t1 >= 0.0) ? p.t1 : p.t2);
 }
 
-double	ft_plane(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
+double			ft_plane(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 {
 	double	t;
 
@@ -48,23 +70,25 @@ double	ft_plane(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 		((tp->univect.x * uni->x)
 		+ (tp->univect.y * uni->y)
 		+ (tp->univect.z * uni->z)));
-	if (t != 0.0001)
-		return (t);
-	else
-		return (-1.0);
+	return (t);
 }
 
-double	ft_cone(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
+double			ft_cone(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 {
+	t_rot	new;
 	t_equ	p;
 
-	p.a = pow(uni->x, 2.0) - (pow(uni->y, 2.0) * tan(ft_rad((double)tp->p4))) + pow(uni->z, 2.0);
-	p.b = ((uni->x * (pos->x - (double)tp->px)) -
-		((uni->y * (pos->y - (double)tp->py)) * tan(ft_rad((double)tp->p4))) +
-		(uni->z * (pos->z - (double)tp->pz))) * 2.0;
-	p.c = (pow(pos->x - (double)tp->px, 2.0)) -
-		((pow(pos->y - (double)tp->py, 2.0)) * tan(ft_rad((double)tp->p4))) +
-		(pow(pos->z - (double)tp->pz, 2.0));
+	new = ft_rotation(tp, uni, pos);
+	p.a = pow(new.uni.x, 2.0) -
+		(pow(new.uni.y, 2.0) * tan(ft_rad((double)tp->p4))) +
+		pow(new.uni.z, 2.0);
+	p.b = ((new.uni.x * (new.pos.x - (double)tp->px)) -
+		((new.uni.y * (new.pos.y - (double)tp->py)) *
+		tan(ft_rad((double)tp->p4))) +
+		(new.uni.z * (new.pos.z - (double)tp->pz))) * 2.0;
+	p.c = (pow(new.pos.x - (double)tp->px, 2.0)) -
+		((pow(new.pos.y - (double)tp->py, 2.0)) * tan(ft_rad((double)tp->p4))) +
+		(pow(new.pos.z - (double)tp->pz, 2.0));
 	p.d = pow(p.b, 2.0) - 4.0 * p.a * p.c;
 	if (p.d < 0.0)
 		return (-1.0);
@@ -78,23 +102,17 @@ double	ft_cone(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 		return ((p.t1 >= 0.0) ? p.t1 : p.t2);
 }
 
-double	ft_cylinder(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
+double			ft_cylinder(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 {
-	t_mat3	v;
+	t_rot	new;
 	t_equ	p;
 
-	v.x = 1.0;
-	v.y = 0.0;
-	v.z = 1.0;
-	p.a = pow(uni->x, 2.0) * v.x +
-		pow(uni->y, 2.0) * v.y +
-		pow(uni->z, 2.0) * v.z;
-	p.b = ((uni->x * (pos->x - (double)tp->px)) * v.x +
-		(uni->y * (pos->y - (double)tp->py)) * v.y +
-		(uni->z * (pos->z - (double)tp->pz)) * v.z) * 2.0;
-	p.c = ((pow(pos->x - (double)tp->px, 2.0)) * v.x +
-		(pow(pos->y - (double)tp->py, 2.0)) * v.y +
-		(pow(pos->z - (double)tp->pz, 2.0)) * v.z) -
+	new = ft_rotation(tp, uni, pos);
+	p.a = pow(new.uni.x, 2.0) + pow(new.uni.z, 2.0);
+	p.b = ((new.uni.x * (new.pos.x - (double)tp->px)) +
+			(new.uni.z * (new.pos.z - (double)tp->pz))) * 2.0;
+	p.c = ((pow(new.pos.x - (double)tp->px, 2.0)) +
+			(pow(new.pos.z - (double)tp->pz, 2.0))) -
 		pow((double)tp->p4, 2.0);
 	p.d = pow(p.b, 2.0) - 4.0 * p.a * p.c;
 	if (p.d < 0.0)

@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/07 13:45:56 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/08 15:42:45 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static void		ft_find_coord_pixel(t_all *all, int x, int y)
 	all->univ_cam.x = pointpos.x / all->lg;
 	all->univ_cam.y = pointpos.y / all->lg;
 	all->univ_cam.z = pointpos.z / all->lg;
-	ft_rot_x(&all->univ_cam, ft_rad(all->cam->dx));
-	ft_rot_y(&all->univ_cam, ft_rad(all->cam->dy));
-	ft_rot_z(&all->univ_cam, ft_rad(all->cam->dz));
+	all->univ_cam = ft_rot_x(all->univ_cam, ft_rad(all->cam->dx));
+	all->univ_cam = ft_rot_y(all->univ_cam, ft_rad(all->cam->dy));
+	all->univ_cam = ft_rot_z(all->univ_cam, ft_rad(all->cam->dz));
 }
 
 t_funct			ft_get_funct(char *name)
@@ -102,8 +102,6 @@ void			ft_ray_tracing(t_all *all, int x, int y)
 	}
 	if (all->test == 1)
 		printf("distance: %.4f\n", all->d);
-	if (rt.good && (ft_strequ(rt.good->name, "sphere") == 1 || ft_strequ(rt.good->name, "plane") == 1 || ft_strequ(rt.good->name, "cylinder") == 1 || ft_strequ(rt.good->name, "cone") == 1))
+	if (rt.good)
 		ft_fill_pixel(&all->ptr, x, y, ft_shadow_object(all, rt.good, all->d));
-	else if (rt.good)
-		ft_fill_pixel(&all->ptr, x, y, rt.color);
 }

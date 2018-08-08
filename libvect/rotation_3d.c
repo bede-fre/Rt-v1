@@ -6,41 +6,50 @@
 /*   By: lguiller <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/26 15:39:47 by lguiller          #+#    #+#             */
-/*   Updated: 2018/07/26 16:43:18 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/08/08 10:22:58 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libvect.h"
 
-void	ft_rot_x(t_mat3 *v, double a)
+t_mat3	ft_rot_x(t_mat3 v, double a)
 {
+	t_mat3	w;
 	double	y;
 	double	z;
 
-	y = v->y;
-	z = v->z;
-	v->y = y * cos(a) - z * sin(a);
-	v->z = y * sin(a) + z * cos(a);
+	y = v.y;
+	z = v.z;
+	w.x = v.x;
+	w.y = y * cos(a) - z * sin(a);
+	w.z = y * sin(a) + z * cos(a);
+	return (w);
 }
 
-void	ft_rot_y(t_mat3 *v, double a)
+t_mat3	ft_rot_y(t_mat3 v, double a)
 {
+	t_mat3	w;
 	double	x;
 	double	z;
 
-	x = v->x;
-	z = v->z;
-	v->x = x * cos(a) + z * sin(a);
-	v->z = -x * sin(a) + z * cos(a);
+	x = v.x;
+	z = v.z;
+	w.x = x * cos(a) + z * sin(a);
+	w.y = v.y;
+	w.z = -x * sin(a) + z * cos(a);
+	return (w);
 }
 
-void	ft_rot_z(t_mat3 *v, double a)
+t_mat3	ft_rot_z(t_mat3 v, double a)
 {
+	t_mat3	w;
 	double	x;
 	double	y;
 
-	x = v->x;
-	y = v->y;
-	v->x = x * cos(a) - y * sin(a);
-	v->y = x * sin(a) + y * cos(a);
+	x = v.x;
+	y = v.y;
+	w.x = x * cos(a) - y * sin(a);
+	w.y = x * sin(a) + y * cos(a);
+	w.z = v.z;
+	return (w);
 }

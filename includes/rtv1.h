@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/08/06 10:52:54 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/08 10:28:04 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,12 @@ typedef struct		s_rt
 	int				color;
 	int				first;
 }					t_rt;
+
+typedef struct		s_rot
+{
+	t_mat3			uni;
+	t_mat3			pos;
+}					t_rot;
 
 void				ft_parse_csv(char *xml, t_all *all);
 void				ft_fill_pixel(t_mlx *mlx, int x, int y, int col);

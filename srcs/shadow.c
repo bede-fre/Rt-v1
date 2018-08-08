@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/07 13:56:37 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/08 15:39:18 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp)
 
 static void		ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp, double d)
 {
- 	shad->p.x = all->cam->px + all->univ_cam.x * d;
+	shad->p.x = all->cam->px + all->univ_cam.x * d;
 	shad->p.y = all->cam->py + all->univ_cam.y * d;
 	shad->p.z = all->cam->pz + all->univ_cam.z * d;
 	shad->vect_norme = ft_start_norm_p(shad, tp);
@@ -81,14 +81,15 @@ int				ft_shadow_object(t_all *all, t_scene *tp, double d)
 	t_shadow	shad;
 
 	ft_init_vect(all, &shad, tp, d);
-	// -------------- NE FONCTIONNE PAS SI NOUS SOMME A L'INTERIEUR D'UN OBJET
 	shad.angle = (shad.vect_norme.x * shad.vect_light.x + shad.vect_norme.y
 		* shad.vect_light.y + shad.vect_norme.z * shad.vect_light.z)
 		/ sqrt((pow(shad.vect_norme.x, 2.0) + pow(shad.vect_norme.y, 2.0)
 		+ pow(shad.vect_norme.z, 2.0)) * (pow(shad.vect_light.x, 2.0)
 		+ pow(shad.vect_light.y, 2.0) + pow(shad.vect_light.z, 2.0)));
-	shad.angle = (shad.angle < 0.0 && ft_strequ(tp->name, "plane") == 0) ? 0.0 : shad.angle;
-	shad.angle = (ft_strequ(tp->name, "plane")) ? ft_fabs(shad.angle) : shad.angle;
+	shad.angle = (shad.angle < 0.0 && ft_strequ(tp->name, "plane") == 0) ? 0.0 :
+		shad.angle;
+	shad.angle = (ft_strequ(tp->name, "plane")) ? ft_fabs(shad.angle) :
+		shad.angle;
 	shad.angle = (shad.angle * (shad.spot->p1 / 100.0))
 		* ft_shadow_proj(all, tp, &shad);
 	return (ft_rgba(tp->p1 * shad.angle, tp->p2 * shad.angle,
