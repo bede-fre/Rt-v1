@@ -6,16 +6,19 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/09 14:09:46 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/09 16:29:56 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp, int test)
+static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp)
 {
 	t_mat3	p;
-	double	d;
+	t_mat3	u;
+	t_mat3	v;
+	double	a;
+	double	b;
 
 	if (ft_strequ(tp->name, "sphere") == 1)
 	{
@@ -33,27 +36,23 @@ static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp, int test)
 	}
 	else if (ft_strequ(tp->name, "cylinder") == 1)
 	{
-		p.x = shad->p.x - tp->px;
-		p.y = shad->p.y - tp->py;
-		p.z = shad->p.z - tp->pz;
-		d = ft_vect_dist(p);
-		(void)test;
-		if (d < (double)tp->p4 - 0.00000001 || d > (double)tp->p4 + 0.00000001)
-		{
-			d = sqrt(pow(d, 2.0) - pow((double)tp->p4, 2.0));
-			p.x = 0.0;
-			p.y = 1.0;
-			p.z = 0.0;
-			p = ft_rot_x(p, (double)tp->dx);
-			p = ft_rot_y(p, (double)tp->dy);
-			p = ft_rot_z(p, (double)tp->dz);
-			p.x = p.x * d + tp->px;
-			p.y = p.y * d + tp->py;
-			p.z = p.z * d + tp->pz;
-			p.x = shad->p.x - p.x;
-			p.y = shad->p.y - p.y;
-			p.z = shad->p.z - p.z;
-		}
+		u.x = shad->p.x - tp->px;
+		u.y = shad->p.y - tp->py;
+		u.z = shad->p.z - tp->pz;
+		v.x = 0.0;
+		v.y = 1.0;
+		v.z = 0.0;
+		v = ft_rot_x(v, ft_rad(tp->dx));
+		v = ft_rot_y(v, ft_rad(tp->dy));
+		v = ft_rot_z(v, ft_rad(tp->dz));
+		a = u.x * v.x + u.y * v.y + u.z * v.z;
+		b = pow(v.x, 2.0) + pow(v.y, 2.0) + pow(v.z, 2.0);
+		v.x = (a * v.x / b) + tp->px;
+		v.y = (a * v.y / b) + tp->py;
+		v.z = (a * v.z / b) + tp->pz;
+		p.x = shad->p.x - v.x;
+		p.y = shad->p.y - v.y;
+		p.z = shad->p.z - v.z;
 		p = ft_normalize(p);
 	}
 	else
@@ -71,7 +70,7 @@ static void		ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp)
 	shad->p.x = all->univ_cam.x * all->d + all->cam->px;
 	shad->p.y = all->univ_cam.y * all->d + all->cam->py;
 	shad->p.z = all->univ_cam.z * all->d + all->cam->pz;
-	shad->uni_norme = ft_start_norm_p(shad, tp, all->test);
+	shad->uni_norme = ft_start_norm_p(shad, tp);
 	shad->uni_light.x = all->spot->px - shad->p.x;
 	shad->uni_light.y = all->spot->py - shad->p.y;
 	shad->uni_light.z = all->spot->pz - shad->p.z;
@@ -118,6 +117,7 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 		shad.angle;
 	shad.angle = (shad.angle * (shad.spot->p1 / 100.0))
 		* ft_shadow_proj(all, tp, &shad);
-	return (ft_rgba(tp->p1 * shad.angle, tp->p2 * shad.angle,
-		tp->p3 * shad.angle, 0));
+	return (ft_rgba((unsigned char)(tp->p1 * shad.angle),
+		(unsigned char)(tp->p2 * shad.angle),
+		(unsigned char)(tp->p3 * shad.angle), (unsigned char)0));
 }

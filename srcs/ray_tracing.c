@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/09 13:09:41 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/09 16:30:15 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void			ft_ray_tracing(t_all *all, int x, int y)
 			{
 				all->d = rt.d;
 				rt.good = rt.tp;
-				rt.color = ft_rgba(rt.tp->p1, rt.tp->p2, rt.tp->p3, 0);
+				rt.color = ft_rgba((unsigned char)rt.tp->p1,
+					(unsigned char)rt.tp->p2, (unsigned char)rt.tp->p3, 0);
 			}
 		rt.tp = rt.tp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/08/09 13:08:58 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/09 15:57:13 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,29 +81,29 @@ typedef struct		s_equ
 typedef struct		s_scene
 {
 	char			*name;
-	int				px;
-	int				py;
-	int				pz;
-	int				dx;
-	int				dy;
-	int				dz;
-	int				p1;
-	int				p2;
-	int				p3;
-	int				p4;
-	int				p5;
+	double			px;
+	double			py;
+	double			pz;
+	double			dx;
+	double			dy;
+	double			dz;
+	double			p1;
+	double			p2;
+	double			p3;
+	double			p4;
+	double			p5;
 	t_mat3			univect;
 	struct s_scene	*next;
 }					t_scene;
 
 typedef struct		s_shadow
 {
-	t_mat3	p;
-	t_mat3	uni_light;
-	t_mat3	uni_norme;
-	t_scene		*spot;
-	double		angle;
-	double		d;
+	t_mat3			p;
+	t_mat3			uni_light;
+	t_mat3			uni_norme;
+	t_scene			*spot;
+	double			angle;
+	double			d;
 }					t_shadow;
 
 typedef struct		s_all
