@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/08 17:22:53 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/09 12:51:46 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ double			ft_cylinder(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 	new = ft_rotation(tp, uni, pos);
 	p.a = pow(new.uni.x, 2.0) + pow(new.uni.z, 2.0);
 	p.b = ((new.uni.x * (new.pos.x - (double)tp->px)) +
-			(new.uni.z * (new.pos.z - (double)tp->pz))) * 2.0;
+		(new.uni.z * (new.pos.z - (double)tp->pz))) * 2.0;
 	p.c = ((pow(new.pos.x - (double)tp->px, 2.0)) +
-			(pow(new.pos.z - (double)tp->pz, 2.0))) -
+		(pow(new.pos.z - (double)tp->pz, 2.0))) -
 		pow((double)tp->p4, 2.0);
 	p.d = pow(p.b, 2.0) - 4.0 * p.a * p.c;
 	if (p.d < 0.0)

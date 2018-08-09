@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:05:31 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/08 15:43:27 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/09 11:18:30 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		ft_button_press(int button, int x, int y, t_all *all)
 {
 	if (button == L_CLIC)
 	{
-		system("leaks rtv1 | grep 'leaked bytes' | cut -c16- | cut -c-7");
+//		system("leaks rtv1 | grep 'leaked bytes' | cut -c16- | cut -c-7");
 		all->test = 1;
 		ft_ray_tracing(all, x, y);
 		all->test = 0;

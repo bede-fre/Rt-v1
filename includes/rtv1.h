@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/08/08 17:23:39 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/09 13:08:58 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void				ft_init_mlx(t_all *all);
 void				ft_ray_tracing(t_all *all, int x, int y);
 int					ft_key_press(int key, void *p);
 int					ft_button_press(int button, int x, int y, t_all *all);
-int					ft_shadow_object(t_all *all, t_scene *tp, double d);
+int					ft_shadow_object(t_all *all, t_scene *tp);
 double				ft_sphere(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 double				ft_plane(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 double				ft_cone(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
