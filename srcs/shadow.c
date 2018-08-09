@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/09 16:29:56 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/09 16:59:35 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp)
 		p.z = tp->univect.z;
 		p = ft_normalize(p);
 	}
-	else if (ft_strequ(tp->name, "cylinder") == 1)
+	else if (ft_strequ(tp->name, "cylinder") == 1 || ft_strequ(tp->name, "cone"))
 	{
 		u.x = shad->p.x - tp->px;
 		u.y = shad->p.y - tp->py;
