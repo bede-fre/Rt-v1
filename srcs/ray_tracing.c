@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/09 16:30:15 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/10 09:47:44 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_funct			ft_get_funct(char *name)
 	i = -1;
 	while (++i < ELEM_LIST_LEN - 2)
 	{
-		if (ft_strequ(name, shape_name[i]) == 1)
+		if (ft_strequ(name, shape_name[i]))
 			return (function_name[i]);
 	}
 	return (NULL);

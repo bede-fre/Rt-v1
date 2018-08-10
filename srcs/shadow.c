@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/09 16:59:35 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/10 09:48:41 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,35 @@ static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp)
 	double	a;
 	double	b;
 
-	if (ft_strequ(tp->name, "sphere") == 1)
+	if (ft_strequ(tp->name, "sphere"))
 	{
 		p.x = shad->p.x - tp->px;
 		p.y = shad->p.y - tp->py;
 		p.z = shad->p.z - tp->pz;
 		p = ft_normalize(p);
 	}
-	else if (ft_strequ(tp->name, "plane") == 1)
+	else if (ft_strequ(tp->name, "cylinder"))
 	{
-		p.x = tp->univect.x;
-		p.y = tp->univect.y;
-		p.z = tp->univect.z;
+		u.x = shad->p.x - tp->px;
+		u.y = shad->p.y - tp->py;
+		u.z = shad->p.z - tp->pz;
+		v.x = 0.0;
+		v.y = 1.0;
+		v.z = 0.0;
+		v = ft_rot_x(v, ft_rad(tp->dx));
+		v = ft_rot_y(v, ft_rad(tp->dy));
+		v = ft_rot_z(v, ft_rad(tp->dz));
+		a = u.x * v.x + u.y * v.y + u.z * v.z;
+		b = pow(v.x, 2.0) + pow(v.y, 2.0) + pow(v.z, 2.0);
+		v.x = (a * v.x / b) + tp->px;
+		v.y = (a * v.y / b) + tp->py;
+		v.z = (a * v.z / b) + tp->pz;
+		p.x = shad->p.x - v.x;
+		p.y = shad->p.y - v.y;
+		p.z = shad->p.z - v.z;
 		p = ft_normalize(p);
 	}
-	else if (ft_strequ(tp->name, "cylinder") == 1 || ft_strequ(tp->name, "cone"))
+	else if (ft_strequ(tp->name, "cone"))
 	{
 		u.x = shad->p.x - tp->px;
 		u.y = shad->p.y - tp->py;
@@ -57,9 +71,9 @@ static t_mat3	ft_start_norm_p(t_shadow *shad, t_scene *tp)
 	}
 	else
 	{
-		p.x = shad->p.x - tp->px;
-		p.y = shad->p.y - tp->py;
-		p.z = shad->p.z - tp->pz;
+		p.x = tp->univect.x;
+		p.y = tp->univect.y;
+		p.z = tp->univect.z;
 		p = ft_normalize(p);
 	}
 	return (p);
@@ -111,7 +125,7 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 		* shad.uni_light.y + shad.uni_norme.z * shad.uni_light.z);
 	if (all->test == 1)
 		printf("%f\n", acos(shad.angle));
-	shad.angle = (shad.angle < 0.0 && ft_strequ(tp->name, "plane") == 0) ? 0.0 :
+	shad.angle = (shad.angle < 0.0 && !ft_strequ(tp->name, "plane")) ? 0.0 :
 		shad.angle;
 	shad.angle = (ft_strequ(tp->name, "plane")) ? ft_fabs(shad.angle) :
 		shad.angle;
