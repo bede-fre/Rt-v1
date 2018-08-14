@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/08/09 15:57:13 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/14 11:09:07 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,9 @@ typedef struct		s_all
 	t_scene			*cam;
 	t_scene			*spot;
 	t_coord_2d		mouse;
-	t_mat3			campos;
-	t_mat3			univ_cam;
+	t_mat3			pos_cam;
+	t_mat3			uni_cam;
 	char			elem_lst[ELEM_LIST_LEN][ELEM_LEN];
-	double			lg;
 	double			d;
 	int				test;
 }					t_all;
@@ -153,5 +152,6 @@ double				ft_sphere(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 double				ft_plane(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 double				ft_cone(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 double				ft_cylinder(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
+t_rot				ft_rotation(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 
 #endif

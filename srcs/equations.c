@@ -6,13 +6,13 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/09 15:23:45 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/13 11:27:10 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static t_rot	ft_rotation(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
+t_rot			ft_rotation(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 {
 	t_rot	new;
 

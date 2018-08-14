@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/10 09:47:44 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/08/14 11:08:38 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static void		ft_init_values(t_all *all, t_rt *rt)
 		ft_error("error: no object cam", 1, ft_puterror);
 	if (!(all->spot = ft_find_link(&all->scene, "spot", 1)))
 		ft_error("error: no object spot", 1, ft_puterror);
-	all->campos.x = all->cam->px;
-	all->campos.y = all->cam->py;
-	all->campos.z = all->cam->pz;
+	all->pos_cam.x = all->cam->px;
+	all->pos_cam.y = all->cam->py;
+	all->pos_cam.z = all->cam->pz;
 	rt->tp = &all->scene;
 	rt->color = 0;
 	rt->first = 0;
@@ -52,17 +52,13 @@ static void		ft_find_coord_pixel(t_all *all, int x, int y)
 	pointpos.z = all->cam->pz + PLAN_D;
 	pointpos.x += ((double)x * INCR_X);
 	pointpos.y -= ((double)y * INCR_Y);
-	all->lg = sqrt(pow(pointpos.x, 2.0) + pow(pointpos.y, 2.0)
-		+ pow(pointpos.z, 2.0));
 	pointpos.x -= all->cam->px;
 	pointpos.y -= all->cam->py;
 	pointpos.z -= all->cam->pz;
-	all->univ_cam.x = pointpos.x / all->lg;
-	all->univ_cam.y = pointpos.y / all->lg;
-	all->univ_cam.z = pointpos.z / all->lg;
-	all->univ_cam = ft_rot_x(all->univ_cam, ft_rad(all->cam->dx));
-	all->univ_cam = ft_rot_y(all->univ_cam, ft_rad(all->cam->dy));
-	all->univ_cam = ft_rot_z(all->univ_cam, ft_rad(all->cam->dz));
+	all->uni_cam = ft_normalize(pointpos);
+	all->uni_cam = ft_rot_x(all->uni_cam, ft_rad(all->cam->dx));
+	all->uni_cam = ft_rot_y(all->uni_cam, ft_rad(all->cam->dy));
+	all->uni_cam = ft_rot_z(all->uni_cam, ft_rad(all->cam->dz));
 }
 
 t_funct			ft_get_funct(char *name)
@@ -90,7 +86,7 @@ void			ft_ray_tracing(t_all *all, int x, int y)
 	while (rt.tp)
 	{
 		if ((rt.f = ft_get_funct(rt.tp->name)))
-			rt.d = rt.f(rt.tp, &all->univ_cam, &all->campos);
+			rt.d = rt.f(rt.tp, &all->uni_cam, &all->pos_cam);
 		if (rt.d >= 0.0)
 			if (rt.d < all->d || ++rt.first == 1)
 			{
