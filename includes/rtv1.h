@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/09/04 16:28:20 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/04 17:23:27 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ typedef struct		s_scene
 typedef struct		s_shadow
 {
 	t_mat3			p;
+	t_mat3			p2;
 	t_mat3			uni_light;
+	t_mat3			uni_light2;
 	t_mat3			uni_norme;
 	t_scene			*spot;
 	double			angle;
@@ -154,5 +156,9 @@ double				ft_plane(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 double				ft_cone(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 double				ft_cylinder(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
 t_rot				ft_rotation(t_scene *tp, t_mat3 *uni, t_mat3 *pos);
+void				ft_init_elem_lst(t_all *all);
+void				ft_init_values(t_all *all, t_rt *rt);
+void				ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp);
+t_mat3				ft_start_norm_p(t_shadow *shad, t_scene tp);
 
 #endif

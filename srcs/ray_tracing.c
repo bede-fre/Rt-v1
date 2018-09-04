@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/04 16:22:59 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/04 17:20:30 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,6 @@ t_scene			*ft_find_link(t_scene *scene, char name[], int i)
 		tp = tp->next;
 	}
 	return (NULL);
-}
-
-static void		ft_init_values(t_all *all, t_rt *rt)
-{
-	if (!(all->cam = ft_find_link(&all->scene, "cam", 1)))
-		ft_error("error: no object cam", 1, ft_puterror);
-	if (!(all->spot = ft_find_link(&all->scene, "spot", 1)))
-		ft_error("error: no object spot", 1, ft_puterror);
-	all->pos_cam.x = all->cam->px;
-	all->pos_cam.y = all->cam->py;
-	all->pos_cam.z = all->cam->pz;
-	all->pos_spot.x = all->spot->px;
-	all->pos_spot.y = all->spot->py;
-	all->pos_spot.z = all->spot->pz;
-	rt->tp = &all->scene;
-	rt->color = 0;
-	rt->first = 0;
-	rt->d = 0.0;
-	all->d = -1.0;
-	rt->good = NULL;
 }
 
 static void		ft_find_coord_pixel(t_all *all, int x, int y)
