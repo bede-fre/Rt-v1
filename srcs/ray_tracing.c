@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/14 11:08:38 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/04 16:22:59 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ static void		ft_init_values(t_all *all, t_rt *rt)
 	all->pos_cam.x = all->cam->px;
 	all->pos_cam.y = all->cam->py;
 	all->pos_cam.z = all->cam->pz;
+	all->pos_spot.x = all->spot->px;
+	all->pos_spot.y = all->spot->py;
+	all->pos_spot.z = all->spot->pz;
 	rt->tp = &all->scene;
 	rt->color = 0;
 	rt->first = 0;
@@ -97,8 +100,6 @@ void			ft_ray_tracing(t_all *all, int x, int y)
 			}
 		rt.tp = rt.tp->next;
 	}
-	if (all->test == 1)
-		printf("distance: %.4f\n", all->d);
 	if (rt.good)
 		ft_fill_pixel(&all->ptr, x, y, ft_shadow_object(all, rt.good));
 }

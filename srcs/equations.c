@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/13 11:27:10 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/04 16:23:16 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ t_rot			ft_rotation(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 {
 	t_rot	new;
 
-	new.uni.x = uni->x;
-	new.uni.y = uni->y;
-	new.uni.z = uni->z;
-	new.uni = ft_rot_x(new.uni, ft_rad(-tp->dx));
-	new.uni = ft_rot_y(new.uni, ft_rad(-tp->dy));
-	new.uni = ft_rot_z(new.uni, ft_rad(-tp->dz));
+	if (uni)
+	{
+		new.uni.x = uni->x;
+		new.uni.y = uni->y;
+		new.uni.z = uni->z;
+		new.uni = ft_rot_x(new.uni, ft_rad(-tp->dx));
+		new.uni = ft_rot_y(new.uni, ft_rad(-tp->dy));
+		new.uni = ft_rot_z(new.uni, ft_rad(-tp->dz));
+	}
 	new.pos.x = pos->x - tp->px;
 	new.pos.y = pos->y - tp->py;
 	new.pos.z = pos->z - tp->pz;
@@ -61,15 +64,17 @@ double			ft_sphere(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 
 double			ft_plane(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 {
+	t_rot	new;
 	double	t;
 
-	t = -(((tp->univect.x * (pos->x - tp->px))
-		+ (tp->univect.y * (pos->y - tp->py))
-		+ (tp->univect.z * (pos->z - tp->pz))
+	new = ft_rotation(tp, uni, pos);
+	t = -(((tp->univect.x * (new.pos.x - tp->px))
+		+ (tp->univect.y * (new.pos.y - tp->py))
+		+ (tp->univect.z * (new.pos.z - tp->pz))
 		+ tp->p4) /
-		((tp->univect.x * uni->x)
-		+ (tp->univect.y * uni->y)
-		+ (tp->univect.z * uni->z)));
+		((tp->univect.x * new.uni.x)
+		+ (tp->univect.y * new.uni.y)
+		+ (tp->univect.z * new.uni.z)));
 	return (t);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 10:42:35 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/08/09 16:28:31 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/04 15:08:31 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	ft_stock_infos(char **tab, t_scene *tp)
 		*((double*)tp + i) = (double)ft_atoi(tab[i]);
 	while (i++ < COL_LEN)
 		*((double*)tp + i) = 0.0;
-	tp->univect = ft_rot_x(tp->univect, ft_rad(tp->dx));
-	tp->univect = ft_rot_y(tp->univect, ft_rad(tp->dy));
-	tp->univect = ft_rot_z(tp->univect, ft_rad(tp->dz));
+//	tp->univect = ft_rot_x(tp->univect, ft_rad(tp->dx));
+//	tp->univect = ft_rot_y(tp->univect, ft_rad(tp->dy));
+//	tp->univect = ft_rot_z(tp->univect, ft_rad(tp->dz));
 }
 
 static void	ft_check_name(char *line, t_all *all, t_scene *tp)

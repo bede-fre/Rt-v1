@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/08/14 11:09:07 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/04 16:28:20 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct		s_all
 	t_coord_2d		mouse;
 	t_mat3			pos_cam;
 	t_mat3			uni_cam;
+	t_mat3			pos_spot;
 	char			elem_lst[ELEM_LIST_LEN][ELEM_LEN];
 	double			d;
 	int				test;
