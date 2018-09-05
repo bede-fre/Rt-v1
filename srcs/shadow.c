@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/05 15:46:42 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/05 16:30:10 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,13 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 
 	ft_init_vect(all, &shad, tp);
 	shad.angle = ft_dot_product(shad.uni_norme, shad.uni_light);
+	if (all->test)
+		printf("angle: %.1f\n", acos(shad.angle) * 180.0 / M_PI);
 	shad.angle = (ft_strequ(tp->name, "plane")) ? fabs(shad.angle) : shad.angle;
 	shad.angle = (shad.angle < 0.0) ? 0.0 : shad.angle;
 	shad.angle = (ft_shadow_proj(all, tp, &shad) == 1.0) ? shad.angle *
-		(shad.spot->p1 / 100.0) * ft_shadow_proj(all, tp, &shad) : ft_shadow_proj(all, tp, &shad);
+		(shad.spot->p1 / 100.0) * ft_shadow_proj(all, tp, &shad) :
+		ft_shadow_proj(all, tp, &shad);
 	return (ft_rgba((unsigned char)(tp->p1 * shad.angle),
 		(unsigned char)(tp->p2 * shad.angle),
 		(unsigned char)(tp->p3 * shad.angle), (unsigned char)0));
