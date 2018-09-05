@@ -6,7 +6,7 @@
 /*   By: lguiller <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 17:17:43 by lguiller          #+#    #+#             */
-/*   Updated: 2018/09/05 09:45:59 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/05 10:16:01 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void		ft_init_values(t_all *all, t_rt *rt)
 	rt->tp = &all->scene;
 	rt->color = 0;
 	rt->first = 0;
-	rt->d = 0.0;
 	all->d = -1.0;
 	rt->good = NULL;
 }

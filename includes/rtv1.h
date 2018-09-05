@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/09/05 09:45:20 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/05 10:18:12 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,6 @@ typedef struct		s_rt
 {
 	t_scene			*tp;
 	t_scene			*good;
-	t_funct			f;
-	double			d;
 	int				color;
 	int				first;
 }					t_rt;

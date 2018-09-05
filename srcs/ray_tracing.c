@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/05 10:07:12 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/05 10:19:30 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,19 @@ t_funct			ft_get_funct(char *name)
 void			ft_ray_tracing(t_all *all, int x, int y)
 {
 	t_rt	rt;
+	t_funct	f;
+	double	d;
 
 	ft_init_values(all, &rt);
 	ft_find_coord_pixel(all, x, y);
 	while (rt.tp)
 	{
-		rt.d = -1.0;
-		if ((rt.f = ft_get_funct(rt.tp->name)))
-			rt.d = rt.f(rt.tp, &all->uni_cam, &all->pos_cam);
-		if (rt.d >= 0.0 && (rt.d < all->d || ++rt.first == 1))
+		d = -1.0;
+		if ((f = ft_get_funct(rt.tp->name)))
+			d = f(rt.tp, &all->uni_cam, &all->pos_cam);
+		if (d >= 0.0 && (d < all->d || ++rt.first == 1))
 		{
-			all->d = rt.d;
+			all->d = d;
 			rt.good = rt.tp;
 			rt.color = ft_rgba((unsigned char)rt.tp->p1,
 				(unsigned char)rt.tp->p2, (unsigned char)rt.tp->p3, 0);
