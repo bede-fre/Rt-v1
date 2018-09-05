@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/09/04 17:23:27 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/05 09:45:20 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ typedef struct		s_rot
 
 void				ft_parse_csv(char *xml, t_all *all);
 void				ft_fill_pixel(t_mlx *mlx, int x, int y, int col);
-t_scene				*ft_find_link(t_scene *scene, char name[], int i);
+t_scene				*ft_find_link(t_scene *scene, char name[]);
 t_funct				ft_get_funct(char *name);
 void				ft_draw(t_all all);
 void				ft_init_mlx(t_all *all);

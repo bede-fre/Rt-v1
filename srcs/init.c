@@ -6,7 +6,7 @@
 /*   By: lguiller <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 17:17:43 by lguiller          #+#    #+#             */
-/*   Updated: 2018/09/04 17:21:36 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/05 09:45:59 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void		ft_init_mlx(t_all *all)
 
 void		ft_init_values(t_all *all, t_rt *rt)
 {
-	if (!(all->cam = ft_find_link(&all->scene, "cam", 1)))
+	if (!(all->cam = ft_find_link(&all->scene, "cam")))
 		ft_error("error: no object cam", 1, ft_puterror);
-	if (!(all->spot = ft_find_link(&all->scene, "spot", 1)))
+	if (!(all->spot = ft_find_link(&all->scene, "spot")))
 		ft_error("error: no object spot", 1, ft_puterror);
 	all->pos_cam.x = all->cam->px;
 	all->pos_cam.y = all->cam->py;
@@ -66,7 +66,7 @@ void		ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp)
 	shad->p.y = new.uni.y * all->d + new.pos.y;
 	shad->p.z = new.uni.z * all->d + new.pos.z;
 	shad->uni_norme = ft_start_norm_p(shad, *tp);
-	shad->spot = ft_find_link(&all->scene, "spot", 1);
+	shad->spot = ft_find_link(&all->scene, "spot");
 	new.pos = all->pos_spot;
 	shad->uni_light2.x = new.pos.x - shad->p2.x;
 	shad->uni_light2.y = new.pos.y - shad->p2.y;
