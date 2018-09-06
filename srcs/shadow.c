@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/06 16:54:52 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/09/06 18:15:51 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,14 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 	shad.angle = (ft_shadow_proj(all, tp, &shad) == 1.0) ? shad.angle *
 		ft_shadow_proj(all, tp, &shad) : ft_shadow_proj(all, tp, &shad);
 	specular = ft_specular_light(all->pos_spot, shad.p, shad.uni_norme, all->pos_cam);
-	red = fmin(255.0 * (tp->p1 / 255.0 + shad.angle + specular), 255.0);
-	green = fmin(255.0 * (tp->p2 / 255.0 + shad.angle + specular), 255.0);
-	blue = fmin(255.0 * (tp->p3 / 255.0 + shad.angle + specular), 255.0);
+	red = fmin((tp->p1 * shad.angle + specular), 255.0);
+	green = fmin((tp->p2 * shad.angle + specular), 255.0);
+	blue = fmin((tp->p3 * shad.angle + specular), 255.0);
+	printf("red: %.0f green: %.0f blue: %.0f\n", red, green, blue);
+	
+	printf("red2: %u green2: %u blue2: %u\n\n", (unsigned char)(tp->p1 *shad.angle),
+		(unsigned char)(tp->p2 * shad.angle), (unsigned char)(tp->p3 *shad.angle));
+	
 	return(ft_rgba((unsigned char)(red),(unsigned char)(green),
 		(unsigned char)(blue), (unsigned char)0));
 }
