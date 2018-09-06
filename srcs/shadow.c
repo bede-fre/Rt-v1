@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/06 11:44:05 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/06 16:54:52 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_shadow *shad)
 int				ft_shadow_object(t_all *all, t_scene *tp)
 {
 	t_shadow	shad;
+	double		specular;
+	double		red;
+	double		green;
+	double		blue;
 
 	ft_init_vect(all, &shad, tp);
 	shad.angle = ft_dot_product(shad.uni_norme, shad.uni_light);
@@ -116,7 +120,10 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 	shad.angle = (shad.angle < 0.0) ? 0.0 : shad.angle;
 	shad.angle = (ft_shadow_proj(all, tp, &shad) == 1.0) ? shad.angle *
 		ft_shadow_proj(all, tp, &shad) : ft_shadow_proj(all, tp, &shad);
-	return (ft_rgba((unsigned char)(tp->p1 * shad.angle),
-		(unsigned char)(tp->p2 * shad.angle),
-		(unsigned char)(tp->p3 * shad.angle), (unsigned char)0));
+	specular = ft_specular_light(all->pos_spot, shad.p, shad.uni_norme, all->pos_cam);
+	red = fmin(255.0 * (tp->p1 / 255.0 + shad.angle + specular), 255.0);
+	green = fmin(255.0 * (tp->p2 / 255.0 + shad.angle + specular), 255.0);
+	blue = fmin(255.0 * (tp->p3 / 255.0 + shad.angle + specular), 255.0);
+	return(ft_rgba((unsigned char)(red),(unsigned char)(green),
+		(unsigned char)(blue), (unsigned char)0));
 }

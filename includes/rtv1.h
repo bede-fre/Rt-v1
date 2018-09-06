@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/09/06 11:59:14 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/06 16:17:50 by bede-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,6 @@ void				ft_init_elem_lst(t_all *all);
 void				ft_init_values(t_all *all, t_rt *rt);
 void				ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp);
 t_mat3				ft_start_norm_p(t_shadow *shad, t_scene tp);
+double				ft_specular_light(t_mat3 spot, t_mat3 inter, t_mat3 norm, t_mat3 cam);
 
 #endif
