@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/07 17:41:45 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/07 17:53:23 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 	shad.angle = (shad.angle < 0.0) ? 0.0 : shad.angle;
 	shad_proj = ft_shadow_proj(all, tp, &shad);
 	shad.angle = (shad_proj == 1.0) ? shad.angle * shad_proj : shad_proj;
+	shad.angle = (angle > 90.0) ? 0.0 : shad.angle;
 	specular = (shad_proj == SHAD_RATE) ? 0.0 :
 		ft_specular_light(all->pos_spot, shad.p, shad.uni_norme, all->pos_cam);
 	color.x = fmin((tp->p1 * shad.angle + specular), 255.0);
