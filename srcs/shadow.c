@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/07 10:16:32 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/07 10:20:06 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,9 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 	red = fmin((tp->p1 * shad.angle + specular), 255.0);
 	green = fmin((tp->p2 * shad.angle + specular), 255.0);
 	blue = fmin((tp->p3 * shad.angle + specular), 255.0);
+	if (all->test)
 	printf("red: %.0f green: %.0f blue: %.0f\n", red, green, blue);
+	if (all->test)
 	printf("red2: %u green2: %u blue2: %u\n\n", (unsigned char)(tp->p1 *shad.angle),
 		(unsigned char)(tp->p2 * shad.angle), (unsigned char)(tp->p3 *shad.angle));
 	
