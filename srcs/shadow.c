@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/07 10:01:16 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/07 13:47:45 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_shadow *shad)
 			if ((f = ft_get_funct(tmp->name)))
 			{
 				d = f(tmp, &shad->uni_light2, &shad->p2);
-				if (d >= ACCURACITY && floor(d) <= shad->d)
+				if (d > ACCURACITY && d <= shad->d)
 					return (0.2);
 			}
 		tmp = tmp->next;
@@ -107,15 +107,18 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_shadow *shad)
 int				ft_shadow_object(t_all *all, t_scene *tp)
 {
 	t_shadow	shad;
+	double		angle;
 
 	ft_init_vect(all, &shad, tp);
 	shad.angle = ft_dot_product(shad.uni_norme, shad.uni_light);
+	angle = acos(shad.angle) * 180.0 / M_PI;
 	if (all->test)
-		printf("angle: %.1f\n", acos(shad.angle) * 180.0 / M_PI);
+		printf("angle: %.1f\n", angle);
 	shad.angle = (ft_strequ(tp->name, "plane")) ? fabs(shad.angle) : shad.angle;
 	shad.angle = (shad.angle < 0.0) ? 0.0 : shad.angle;
 	shad.angle = (ft_shadow_proj(all, tp, &shad) == 1.0) ? shad.angle *
 		ft_shadow_proj(all, tp, &shad) : ft_shadow_proj(all, tp, &shad);
+	shad.angle = (angle > 90.0) ? 0.0 : shad.angle;
 	return (ft_rgba((unsigned char)(tp->p1 * shad.angle),
 		(unsigned char)(tp->p2 * shad.angle),
 		(unsigned char)(tp->p3 * shad.angle), (unsigned char)0));
