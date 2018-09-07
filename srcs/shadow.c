@@ -6,7 +6,11 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/09/07 10:20:06 by lguiller         ###   ########.fr       */
+=======
+/*   Updated: 2018/09/07 14:22:36 by lguiller         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +21,15 @@ static t_mat3	ft_shadow_cone(t_shadow *shad, t_scene tp)
 	t_mat3	p;
 	t_mat3	u;
 	double	d;
+	double	angle;
 
 	u.x = shad->p.x - tp.px;
 	u.y = shad->p.y - tp.py;
 	u.z = shad->p.z - tp.pz;
+	angle = ft_deg(acos(ft_dot_product(u, tp.univect) / (ft_vect_dist(u))));
+	tp.univect = (angle > 90.0) ? ft_reverse_vect(tp.univect) : tp.univect;
 	d = ft_vect_dist(u);
-	d /= cos(ft_rad((!tp.univect.y) ? tp.p4 + (180.0 - 2.0 * tp.p4) : tp.p4));
+	d /= cos(ft_rad(tp.p4));
 	tp.univect.x = (tp.univect.x * d) + tp.px;
 	tp.univect.y = (tp.univect.y * d) + tp.py;
 	tp.univect.z = (tp.univect.z * d) + tp.pz;
@@ -96,7 +103,7 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_shadow *shad)
 			if ((f = ft_get_funct(tmp->name)))
 			{
 				d = f(tmp, &shad->uni_light2, &shad->p2);
-				if (d >= ACCURACITY && floor(d) <= shad->d)
+				if (d > ACCURACITY && d <= shad->d)
 					return (0.2);
 			}
 		tmp = tmp->next;
@@ -107,19 +114,25 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_shadow *shad)
 int				ft_shadow_object(t_all *all, t_scene *tp)
 {
 	t_shadow	shad;
+<<<<<<< HEAD
 	double		specular;
 	double		red;
 	double		green;
 	double		blue;
+=======
+	double		angle;
+>>>>>>> master
 
 	ft_init_vect(all, &shad, tp);
 	shad.angle = ft_dot_product(shad.uni_norme, shad.uni_light);
+	angle = ft_deg(acos(shad.angle));
 	if (all->test)
-		printf("angle: %.1f\n", acos(shad.angle) * 180.0 / M_PI);
+		printf("angle: %.1f\n", angle);
 	shad.angle = (ft_strequ(tp->name, "plane")) ? fabs(shad.angle) : shad.angle;
 	shad.angle = (shad.angle < 0.0) ? 0.0 : shad.angle;
 	shad.angle = (ft_shadow_proj(all, tp, &shad) == 1.0) ? shad.angle *
 		ft_shadow_proj(all, tp, &shad) : ft_shadow_proj(all, tp, &shad);
+<<<<<<< HEAD
 	specular = ft_specular_light(all->pos_spot, shad.p, shad.uni_norme, all->pos_cam);
 	red = fmin((tp->p1 * shad.angle + specular), 255.0);
 	green = fmin((tp->p2 * shad.angle + specular), 255.0);
@@ -132,4 +145,10 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 	
 	return(ft_rgba((unsigned char)(red),(unsigned char)(green),
 		(unsigned char)(blue), (unsigned char)0));
+=======
+	shad.angle = (angle > 90.0) ? 0.0 : shad.angle;
+	return (ft_rgba((unsigned char)(tp->p1 * shad.angle),
+		(unsigned char)(tp->p2 * shad.angle),
+		(unsigned char)(tp->p3 * shad.angle), (unsigned char)0));
+>>>>>>> master
 }
