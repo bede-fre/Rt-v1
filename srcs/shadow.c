@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/07 08:51:58 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/07 10:01:16 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_shadow *shad)
 			if ((f = ft_get_funct(tmp->name)))
 			{
 				d = f(tmp, &shad->uni_light2, &shad->p2);
-				if (d >= 0.0 && floor(d) <= shad->d)
+				if (d >= ACCURACITY && floor(d) <= shad->d)
 					return (0.2);
 			}
 		tmp = tmp->next;
