@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/07 13:47:45 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/07 14:22:36 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ static t_mat3	ft_shadow_cone(t_shadow *shad, t_scene tp)
 	t_mat3	p;
 	t_mat3	u;
 	double	d;
+	double	angle;
 
 	u.x = shad->p.x - tp.px;
 	u.y = shad->p.y - tp.py;
 	u.z = shad->p.z - tp.pz;
+	angle = ft_deg(acos(ft_dot_product(u, tp.univect) / (ft_vect_dist(u))));
+	tp.univect = (angle > 90.0) ? ft_reverse_vect(tp.univect) : tp.univect;
 	d = ft_vect_dist(u);
-	d /= cos(ft_rad((!tp.univect.y) ? tp.p4 + (180.0 - 2.0 * tp.p4) : tp.p4));
+	d /= cos(ft_rad(tp.p4));
 	tp.univect.x = (tp.univect.x * d) + tp.px;
 	tp.univect.y = (tp.univect.y * d) + tp.py;
 	tp.univect.z = (tp.univect.z * d) + tp.pz;
@@ -111,7 +114,7 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 
 	ft_init_vect(all, &shad, tp);
 	shad.angle = ft_dot_product(shad.uni_norme, shad.uni_light);
-	angle = acos(shad.angle) * 180.0 / M_PI;
+	angle = ft_deg(acos(shad.angle));
 	if (all->test)
 		printf("angle: %.1f\n", angle);
 	shad.angle = (ft_strequ(tp->name, "plane")) ? fabs(shad.angle) : shad.angle;
