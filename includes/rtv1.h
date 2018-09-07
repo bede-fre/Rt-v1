@@ -6,7 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-/*   Updated: 2018/09/06 16:17:50 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/09/07 10:16:15 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define WIN_Y			800
 # define INCR_X			PLAN_W / (double)WIN_X
 # define INCR_Y			PLAN_H / (double)WIN_Y
+# define ACCURACITY		0.000001
 
 # ifdef __linux__
 #  define ESC			65307

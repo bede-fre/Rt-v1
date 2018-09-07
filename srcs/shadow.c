@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/06 18:15:51 by bede-fre         ###   ########.fr       */
+/*   Updated: 2018/09/07 10:16:32 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static double	ft_shadow_proj(t_all *all, t_scene *tp, t_shadow *shad)
 			if ((f = ft_get_funct(tmp->name)))
 			{
 				d = f(tmp, &shad->uni_light2, &shad->p2);
-				if (d >= 0.0 && floor(d) <= shad->d)
+				if (d >= ACCURACITY && floor(d) <= shad->d)
 					return (0.2);
 			}
 		tmp = tmp->next;
@@ -125,7 +125,6 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 	green = fmin((tp->p2 * shad.angle + specular), 255.0);
 	blue = fmin((tp->p3 * shad.angle + specular), 255.0);
 	printf("red: %.0f green: %.0f blue: %.0f\n", red, green, blue);
-	
 	printf("red2: %u green2: %u blue2: %u\n\n", (unsigned char)(tp->p1 *shad.angle),
 		(unsigned char)(tp->p2 * shad.angle), (unsigned char)(tp->p3 *shad.angle));
 	
