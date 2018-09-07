@@ -6,11 +6,7 @@
 /*   By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:14:04 by lguiller          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2018/09/07 10:16:15 by lguiller         ###   ########.fr       */
-=======
-/*   Updated: 2018/09/07 11:54:56 by lguiller         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2018/09/07 15:32:06 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +29,7 @@
 # define INCR_X			PLAN_W / (double)WIN_X
 # define INCR_Y			PLAN_H / (double)WIN_Y
 # define ACCURACITY		0.000001
+# define SHAD_RATE		0.2
 
 # ifdef __linux__
 #  define ESC			65307
@@ -163,6 +160,7 @@ void				ft_init_elem_lst(t_all *all);
 void				ft_init_values(t_all *all, t_rt *rt);
 void				ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp);
 t_mat3				ft_start_norm_p(t_shadow *shad, t_scene tp);
-double				ft_specular_light(t_mat3 spot, t_mat3 inter, t_mat3 norm, t_mat3 cam);
+double				ft_specular_light(t_mat3 spot, t_mat3 inter, t_mat3 norm,
+						t_mat3 cam);
 
 #endif

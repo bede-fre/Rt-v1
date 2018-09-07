@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 16:14:09 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/07 09:11:11 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/07 15:05:16 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ double	ft_specular_light(t_mat3 spot, t_mat3 inter, t_mat3 norm, t_mat3 cam)
 		* (ft_vect_dist(int_cam)))) * 180.0 / M_PI;
 	if (angle < 20.0)
 		ret = 255.0 * pow(ft_dot_product(int_ref, int_cam) /
-			(ft_vect_dist(int_ref) * ft_vect_dist(int_cam)), 50.0);
+			(ft_vect_dist(int_ref) * ft_vect_dist(int_cam)), 75.0);
 	else
 		ret = 0.0;
 	return (ret);
