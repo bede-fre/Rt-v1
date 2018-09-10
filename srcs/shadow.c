@@ -6,22 +6,22 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/07 17:59:18 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/10 10:53:34 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static t_mat3	ft_shadow_cone(t_shadow *shad, t_scene tp)
+static t_mat3	ft_shadow_cone(t_mat3 inter, t_scene tp)
 {
 	t_mat3	p;
 	t_mat3	u;
 	double	d;
 	double	angle;
 
-	u.x = shad->p.x - tp.px;
-	u.y = shad->p.y - tp.py;
-	u.z = shad->p.z - tp.pz;
+	u.x = inter.x - tp.px;
+	u.y = inter.y - tp.py;
+	u.z = inter.z - tp.pz;
 	angle = ft_deg(acos(ft_dot_product(u, tp.univect) / (ft_vect_dist(u))));
 	tp.univect = (angle > 90.0) ? ft_reverse_vect(tp.univect) : tp.univect;
 	d = ft_vect_dist(u);
@@ -29,23 +29,23 @@ static t_mat3	ft_shadow_cone(t_shadow *shad, t_scene tp)
 	tp.univect.x = (tp.univect.x * d) + tp.px;
 	tp.univect.y = (tp.univect.y * d) + tp.py;
 	tp.univect.z = (tp.univect.z * d) + tp.pz;
-	p.x = shad->p.x - tp.univect.x;
-	p.y = shad->p.y - tp.univect.y;
-	p.z = shad->p.z - tp.univect.z;
+	p.x = inter.x - tp.univect.x;
+	p.y = inter.y - tp.univect.y;
+	p.z = inter.z - tp.univect.z;
 	p = ft_normalize(p);
 	return (p);
 }
 
-static t_mat3	ft_shadow_cylinder(t_shadow *shad, t_scene tp)
+static t_mat3	ft_shadow_cylinder(t_mat3 inter, t_scene tp)
 {
 	t_mat3	p;
 	t_mat3	u;
 	double	a;
 	double	b;
 
-	u.x = shad->p.x - tp.px;
-	u.y = shad->p.y - tp.py;
-	u.z = shad->p.z - tp.pz;
+	u.x = inter.x - tp.px;
+	u.y = inter.y - tp.py;
+	u.z = inter.z - tp.pz;
 	a = u.x * tp.univect.x + u.y * tp.univect.y + u.z * tp.univect.z;
 	b = pow(tp.univect.x, 2.0) +
 		pow(tp.univect.y, 2.0) +
@@ -53,28 +53,28 @@ static t_mat3	ft_shadow_cylinder(t_shadow *shad, t_scene tp)
 	tp.univect.x = (a * tp.univect.x / b) + tp.px;
 	tp.univect.y = (a * tp.univect.y / b) + tp.py;
 	tp.univect.z = (a * tp.univect.z / b) + tp.pz;
-	p.x = shad->p.x - tp.univect.x;
-	p.y = shad->p.y - tp.univect.y;
-	p.z = shad->p.z - tp.univect.z;
+	p.x = inter.x - tp.univect.x;
+	p.y = inter.y - tp.univect.y;
+	p.z = inter.z - tp.univect.z;
 	p = ft_normalize(p);
 	return (p);
 }
 
-t_mat3			ft_start_norm_p(t_shadow *shad, t_scene tp)
+t_mat3			ft_start_norm_p(t_mat3 inter, t_scene tp)
 {
 	t_mat3	p;
 
 	if (ft_strequ(tp.name, "sphere"))
 	{
-		p.x = shad->p.x - tp.px;
-		p.y = shad->p.y - tp.py;
-		p.z = shad->p.z - tp.pz;
+		p.x = inter.x - tp.px;
+		p.y = inter.y - tp.py;
+		p.z = inter.z - tp.pz;
 		p = ft_normalize(p);
 	}
 	else if (ft_strequ(tp.name, "cylinder"))
-		p = ft_shadow_cylinder(shad, tp);
+		p = ft_shadow_cylinder(inter, tp);
 	else if (ft_strequ(tp.name, "cone"))
-		p = ft_shadow_cone(shad, tp);
+		p = ft_shadow_cone(inter, tp);
 	else
 	{
 		p.x = tp.univect.x;
@@ -125,7 +125,7 @@ int				ft_shadow_object(t_all *all, t_scene *tp)
 	shad_proj = ft_shadow_proj(all, tp, &shad);
 	shad.angle = (shad_proj == 1.0) ? shad.angle * shad_proj : shad_proj;
 	shad.angle = (angle > 90.0) ? 0.0 : shad.angle;
-	specular = (shad_proj == SHAD_RATE) ? 0.0 :
+	specular = (shad_proj == SHAD_RATE || !tp->p5) ? 0.0 :
 		ft_specular_light(all->pos_spot, shad.p, shad.uni_norme, all->pos_cam);
 	color.x = fmin((tp->p1 * shad.angle + specular), 255.0);
 	color.y = fmin((tp->p2 * shad.angle + specular), 255.0);

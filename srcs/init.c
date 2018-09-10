@@ -6,7 +6,7 @@
 /*   By: lguiller <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 17:17:43 by lguiller          #+#    #+#             */
-/*   Updated: 2018/09/07 12:14:30 by lguiller         ###   ########.fr       */
+/*   Updated: 2018/09/10 09:48:10 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp)
 	shad->p.x = new.uni.x * all->d + new.pos.x;
 	shad->p.y = new.uni.y * all->d + new.pos.y;
 	shad->p.z = new.uni.z * all->d + new.pos.z;
-	shad->uni_norme = ft_start_norm_p(shad, *tp);
+	shad->uni_norme = ft_start_norm_p(shad->p, *tp);
 	shad->spot = ft_find_link(&all->scene, "spot");
 	new.pos = all->pos_spot;
 	shad->uni_light2.x = new.pos.x - shad->p2.x;
