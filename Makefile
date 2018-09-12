@@ -6,7 +6,7 @@
 #    By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 12:18:12 by lguiller          #+#    #+#              #
-#    Updated: 2018/09/06 16:18:15 by bede-fre         ###   ########.fr        #
+#    Updated: 2018/09/12 17:30:27 by lguiller         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ _CUT		= "\033[k"
 ##   TARGETS    ##
 ##################
 
-.PHONY: all title libft minilibx libvect create_dir clean fclean re
+.PHONY: all title libft minilibx libvect create_dir clean fclean re norme
 
 all: $(NAME)
 
@@ -99,6 +99,11 @@ fclean: clean
 re:
 	@$(MAKE) -s fclean
 	@$(MAKE) -s
+
+norme:
+	@norminette srcs/*.c includes/*.h
+	@make -C libft norme
+	@make -C libvect norme
 
 title:
 	@echo $(_RED)
