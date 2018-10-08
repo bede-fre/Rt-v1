@@ -6,7 +6,7 @@
 #    By: lguiller <lguiller@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 12:18:12 by lguiller          #+#    #+#              #
-#    Updated: 2018/09/12 17:30:27 by lguiller         ###   ########.fr        #
+#    Updated: 2018/10/08 15:54:51 by lguiller         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ clean:
 	@make -sC libft clean
 	@make -sC libvect clean
 	@make -sC $(MLX_DIR) clean
-	@/bin/rm -f $(OBJS)
+	@/bin/rm -rf $(OBJS_DIR)
 
 fclean: clean
 	@make -sC libft fclean
