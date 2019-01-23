@@ -6,7 +6,7 @@
 /*   By: lguiller <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 17:17:43 by lguiller          #+#    #+#             */
-/*   Updated: 2018/09/10 09:48:10 by lguiller         ###   ########.fr       */
+/*   Updated: 2019/01/23 14:14:33 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void		ft_init_vect(t_all *all, t_shadow *shad, t_scene *tp)
 	shad->uni_light.z = new.pos.z - shad->p.z;
 	shad->d = sqrt(pow(shad->uni_light2.x, 2.0) + pow(shad->uni_light2.y, 2.0) +
 		pow(shad->uni_light2.z, 2.0));
-	shad->uni_light = ft_normalize(shad->uni_light);
-	shad->uni_light2 = ft_normalize(shad->uni_light2);
+	shad->uni_light = ft_vecnormalize(shad->uni_light);
+	shad->uni_light2 = ft_vecnormalize(shad->uni_light2);
 }

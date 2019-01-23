@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/07 11:52:09 by lguiller         ###   ########.fr       */
+/*   Updated: 2019/01/23 14:16:45 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ t_rot			ft_rotation(t_scene *tp, t_mat3 *uni, t_mat3 *pos)
 		new.uni.x = uni->x;
 		new.uni.y = uni->y;
 		new.uni.z = uni->z;
-		new.uni = ft_rot_x(new.uni, ft_rad(-tp->dx));
-		new.uni = ft_rot_y(new.uni, ft_rad(-tp->dy));
-		new.uni = ft_rot_z(new.uni, ft_rad(-tp->dz));
+		new.uni = ft_vecrotx(new.uni, ft_rad(-tp->dx));
+		new.uni = ft_vecroty(new.uni, ft_rad(-tp->dy));
+		new.uni = ft_vecrotz(new.uni, ft_rad(-tp->dz));
 	}
 	new.pos.x = pos->x - tp->px;
 	new.pos.y = pos->y - tp->py;
 	new.pos.z = pos->z - tp->pz;
-	new.pos = ft_rot_x(new.pos, ft_rad(-tp->dx));
-	new.pos = ft_rot_y(new.pos, ft_rad(-tp->dy));
-	new.pos = ft_rot_z(new.pos, ft_rad(-tp->dz));
+	new.pos = ft_vecrotx(new.pos, ft_rad(-tp->dx));
+	new.pos = ft_vecroty(new.pos, ft_rad(-tp->dy));
+	new.pos = ft_vecrotz(new.pos, ft_rad(-tp->dz));
 	new.pos.x += tp->px;
 	new.pos.y += tp->py;
 	new.pos.z += tp->pz;

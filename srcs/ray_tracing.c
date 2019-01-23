@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/07 13:47:10 by lguiller         ###   ########.fr       */
+/*   Updated: 2019/01/23 14:17:06 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ static void		ft_find_coord_pixel(t_all *all, int x, int y)
 	pointpos.x -= all->cam->px;
 	pointpos.y -= all->cam->py;
 	pointpos.z -= all->cam->pz;
-	all->uni_cam = ft_normalize(pointpos);
-	all->uni_cam = ft_rot_x(all->uni_cam, ft_rad(all->cam->dx));
-	all->uni_cam = ft_rot_y(all->uni_cam, ft_rad(all->cam->dy));
-	all->uni_cam = ft_rot_z(all->uni_cam, ft_rad(all->cam->dz));
+	all->uni_cam = ft_vecnormalize(pointpos);
+	all->uni_cam = ft_vecrotx(all->uni_cam, ft_rad(all->cam->dx));
+	all->uni_cam = ft_vecroty(all->uni_cam, ft_rad(all->cam->dy));
+	all->uni_cam = ft_vecrotz(all->uni_cam, ft_rad(all->cam->dz));
 }
 
 t_funct			ft_get_funct(char *name)

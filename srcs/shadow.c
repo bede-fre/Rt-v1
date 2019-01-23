@@ -6,7 +6,7 @@
 /*   By: bede-fre <bede-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:49:57 by bede-fre          #+#    #+#             */
-/*   Updated: 2018/09/10 10:53:34 by lguiller         ###   ########.fr       */
+/*   Updated: 2019/01/23 14:19:30 by lguiller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static t_mat3	ft_shadow_cone(t_mat3 inter, t_scene tp)
 	u.x = inter.x - tp.px;
 	u.y = inter.y - tp.py;
 	u.z = inter.z - tp.pz;
-	angle = ft_deg(acos(ft_dot_product(u, tp.univect) / (ft_vect_dist(u))));
+	angle = ft_deg(acos(ft_dot_product(u, tp.univect) / (ft_vecnorm(u))));
 	tp.univect = (angle > 90.0) ? ft_reverse_vect(tp.univect) : tp.univect;
-	d = ft_vect_dist(u);
+	d = ft_vecnorm(u);
 	d /= cos(ft_rad(tp.p4));
 	tp.univect.x = (tp.univect.x * d) + tp.px;
 	tp.univect.y = (tp.univect.y * d) + tp.py;
@@ -32,7 +32,7 @@ static t_mat3	ft_shadow_cone(t_mat3 inter, t_scene tp)
 	p.x = inter.x - tp.univect.x;
 	p.y = inter.y - tp.univect.y;
 	p.z = inter.z - tp.univect.z;
-	p = ft_normalize(p);
+	p = ft_vecnormalize(p);
 	return (p);
 }
 
@@ -56,7 +56,7 @@ static t_mat3	ft_shadow_cylinder(t_mat3 inter, t_scene tp)
 	p.x = inter.x - tp.univect.x;
 	p.y = inter.y - tp.univect.y;
 	p.z = inter.z - tp.univect.z;
-	p = ft_normalize(p);
+	p = ft_vecnormalize(p);
 	return (p);
 }
 
@@ -69,7 +69,7 @@ t_mat3			ft_start_norm_p(t_mat3 inter, t_scene tp)
 		p.x = inter.x - tp.px;
 		p.y = inter.y - tp.py;
 		p.z = inter.z - tp.pz;
-		p = ft_normalize(p);
+		p = ft_vecnormalize(p);
 	}
 	else if (ft_strequ(tp.name, "cylinder"))
 		p = ft_shadow_cylinder(inter, tp);
@@ -80,7 +80,7 @@ t_mat3			ft_start_norm_p(t_mat3 inter, t_scene tp)
 		p.x = tp.univect.x;
 		p.y = tp.univect.y;
 		p.z = tp.univect.z;
-		p = ft_normalize(p);
+		p = ft_vecnormalize(p);
 	}
 	return (p);
 }
