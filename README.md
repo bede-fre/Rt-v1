@@ -1,41 +1,25 @@
-# rtv1
+# RT-V1
+
+A simple raytracer renderer.
+
+## Download format :
+
+```git clone https://github.com/bede-fre/Rt-v1.git```
+
+## Compilation :
+
+Enter in the dowloaded folder ```cd rtv1/``` and compile an executable with command ```make``` after that run the program with a scene argument ```./rtv1 scene```
+
+## Commands :
+
+- Mouse left button : Display light vector reflexion angle from pixel clicked
+- ESC : Quit program
+
+## Screenshots :
+
+![screenshot](/screen/Sphere.png?raw=true)
 
 ![screenshot](/screen/screen.png?raw=true)
 
-## Telechargement:
-```
-git clone https://github.com/Lynux2142/rtv1.git
-
-git clone https://github.com/Lynux2142/libft.git
-
-git clone https://github.com/Lynux2142/libvect.git
-```
-sur MAC:
-```
-git clone https://github.com/Lynux2142/minilibx.git
-```
-sur LINUX:
-```
-git clone https://github.com/Lynux2142/minilibx_x11.git
-```
-Librairie X11 necessaire:
-```
-apt-get install libx11-dev libxext-dev -y
-```
-## Compilation:
-
-```cd rtv1/```
-
-```make```
-
-```./rtv1 [scene]```
-
-### example:
-
-```./rtv1 scenes/scene7.csv```
-
-## Utilisation:
 
 * 'left clic' = afficher l'angle de reflexion du vecteur lumineux du point pointe par la souris
-
-* 'esc' = quitter
